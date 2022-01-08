@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "193674050191",
+    "project_id": "janata-transpo-9eedf",
+    "storage_bucket": "janata-transpo-9eedf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193674050191:android:ee7de0661fc3df520c8efa",
+        "android_client_info": {
+          "package_name": "com.wht.janatatranspodriver"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "193674050191-dlb2eal55tslshpnes0ida0lm13chqd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxrq3W-WUYHd0zKI8MfMbGgwzKk3l3ve4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "193674050191-dlb2eal55tslshpnes0ida0lm13chqd9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:193674050191:android:e71191f4f95d2cb20c8efa",
+        "android_client_info": {
+          "package_name": "com.wht.janatatraspo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "193674050191-dlb2eal55tslshpnes0ida0lm13chqd9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDxrq3W-WUYHd0zKI8MfMbGgwzKk3l3ve4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "193674050191-dlb2eal55tslshpnes0ida0lm13chqd9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

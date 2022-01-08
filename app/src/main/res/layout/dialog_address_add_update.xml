@@ -1,0 +1,306 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/apptheme">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1"
+            android:elevation="30dp"
+            app:cardCornerRadius="5dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="10dp">
+
+                <TextView
+                    android:id="@+id/tvTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center"
+                    android:padding="15dp"
+                    android:text="Add Address"
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/rlProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:padding="10dp">
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/ivProfileImage"
+                        android:layout_width="90dp"
+                        android:layout_height="90dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_margin="5dp"
+                        android:elevation="10dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/picker"
+                       />
+
+
+                    <TextView
+                        android:id="@+id/tvProfileName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/ivProfileImage"
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="10dp"
+                        android:ellipsize="end"
+                        android:gravity="center_horizontal"
+                        android:inputType="textMultiLine|textNoSuggestions"
+                        android:singleLine="false"
+                        android:text="Your Select Address Info"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <CheckBox
+                        android:id="@+id/cb_defaultAddress"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tvProfileName"
+                        android:layout_marginTop="10dp"
+                        android:text="Is This your Default Address ?" />
+
+                    <TextView
+                        android:id="@+id/textLat"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cb_defaultAddress"
+                        android:layout_gravity="center_horizontal"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/black"
+                        android:visibility="gone"/>
+
+                    <TextView
+                        android:id="@+id/textLng"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textLat"
+                        android:layout_gravity="center_horizontal"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:textColor="@color/black"
+                        android:visibility="gone"/>
+
+
+                </RelativeLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/tvFullAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginBottom="@dimen/ten"
+                        android:gravity="center_vertical"
+                        android:text="Selected Address"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/ten"
+                        android:background="@drawable/border_layout"
+                        android:gravity="center_vertical"
+                        android:padding="@dimen/ten"
+                        android:lineSpacingMultiplier="1.2"
+                        android:lines="4"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/graylight"
+                        android:textStyle="normal" />
+
+                </LinearLayout>
+
+                <!--   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="15dp"
+                       android:orientation="vertical">
+
+
+                       <TextView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginLeft="5dp"
+                           android:layout_marginBottom="@dimen/ten"
+                           android:gravity="center_vertical"
+                           android:text="Land Mark"
+                           android:textColor="@color/black"
+                           android:textStyle="bold" />
+
+                       <EditText
+                           android:id="@+id/etLandMark"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginBottom="@dimen/ten"
+                           android:background="@drawable/border_layout"
+                           android:gravity="center_vertical"
+                           android:padding="@dimen/ten"
+                           android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                           android:textColor="@color/black"
+                           android:textColorHint="@color/grey_transparent"
+                           android:textStyle="normal" />
+
+                   </LinearLayout>-->
+
+                <!--
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="15dp"
+                     android:orientation="vertical">
+
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="5dp"
+                         android:layout_marginBottom="@dimen/ten"
+                         android:gravity="center_vertical"
+                         android:text="City"
+                         android:textColor="@color/black"
+                         android:textStyle="bold" />
+
+                     <EditText
+                         android:id="@+id/etCity"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginBottom="@dimen/ten"
+                         android:background="@drawable/border_layout"
+                         android:gravity="center_vertical"
+                         android:padding="@dimen/ten"
+                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                         android:textColor="@color/black"
+                         android:textColorHint="@color/grey_transparent"
+                         android:textStyle="normal" />
+
+                 </LinearLayout>
+
+
+                 <LinearLayout
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:layout_marginTop="15dp"
+                     android:orientation="vertical">
+
+
+                     <TextView
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginLeft="5dp"
+                         android:layout_marginBottom="@dimen/ten"
+                         android:gravity="center_vertical"
+                         android:text="State"
+                         android:textColor="@color/black"
+                         android:textStyle="bold" />
+
+                     <EditText
+                         android:id="@+id/etState"
+                         android:layout_width="match_parent"
+                         android:layout_height="wrap_content"
+                         android:layout_marginBottom="@dimen/ten"
+                         android:background="@drawable/border_layout"
+                         android:gravity="center_vertical"
+                         android:padding="@dimen/ten"
+                         android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                         android:textColor="@color/black"
+                         android:textColorHint="@color/grey_transparent"
+                         android:textStyle="normal" />
+
+                 </LinearLayout>-->
+
+
+
+
+
+
+
+                <LinearLayout
+                    android:id="@+id/llButtons"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+
+                    <Button
+                        android:id="@+id/buttonSave"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rlPasswordId"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="@dimen/ten"
+                        android:text="Save"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/freshwhite"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+
+                    <Button
+                        android:id="@+id/buttonExit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/rlPasswordId"
+                        android:layout_gravity="center"
+                        android:layout_margin="10dp"
+                        android:layout_marginTop="25dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_weight="1"
+                        android:background="@color/colorPrimary"
+                        android:gravity="center"
+                        android:padding="@dimen/ten"
+                        android:text="Exit"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textColor="@color/freshwhite"
+                        android:textSize="16dp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>
+

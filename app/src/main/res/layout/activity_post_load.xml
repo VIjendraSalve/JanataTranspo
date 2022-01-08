@@ -1,0 +1,1025 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorGray"
+    android:orientation="vertical">
+
+    <include layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/ten">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/five"
+                android:visibility="gone">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/spnr_loadtype"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/edittext_background"
+                    android:entries="@array/load_type"
+                    android:gravity="center_vertical" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginBottom="5dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+            </FrameLayout>
+
+
+            <RadioGroup
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+
+                <RadioButton
+                    android:id="@+id/rb_fullLoad"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Full Load"
+                    android:textSize="@dimen/fifteen" />
+
+                <RadioButton
+                    android:id="@+id/rb_partload"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Part Load"
+                    android:textSize="@dimen/fifteen" />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/tv_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/five"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sixteen"
+                android:text="Location Details"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/five"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:orientation="vertical"
+                    android:padding="@dimen/five">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten">
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spnr_pickup"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/edittext_background"
+                            android:entries="@array/lost_reasons"
+                            android:gravity="center_vertical" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:layout_marginBottom="5dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                    </FrameLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rllatlong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_Pickuplatlong"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:gravity="left|top"
+                            android:inputType="text|textNoSuggestions|textMultiLine"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="Pickup LatLong "
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/five">
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spnr_dest"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/edittext_background"
+                            android:entries="@array/win_reasons"
+                            android:gravity="center_vertical" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:layout_marginBottom="5dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                    </FrameLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlDestinationlatlong"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_Destinationlatlong"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:gravity="left|top"
+                            android:inputType="text|textNoSuggestions|textMultiLine"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="Destination Latlong"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_load"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/five"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sixteen"
+                android:text="Load Details"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/five"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:orientation="vertical"
+                    android:padding="@dimen/five">
+
+                    <RelativeLayout
+                        android:id="@+id/rlMaterial"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_Material"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:gravity="left|top"
+                            android:inputType="text|textNoSuggestions|textMultiLine"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="Material "
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlTonn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp">
+
+                        <EditText
+                            android:id="@+id/et_Tonn"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:gravity="left|top"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
+                            android:maxLength="8"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="Number of Ton"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten"
+                        android:text="Vehicle Required : "
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/fifteen" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recyclerViewVehicleType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/ten" />
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_weight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/five"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sixteen"
+                android:text="Weight Details"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/five"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:orientation="vertical"
+                    android:padding="@dimen/five">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:baselineAligned="false"
+                        android:orientation="horizontal"
+                        android:weightSum="3">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:id="@+id/rlLength"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                                <EditText
+                                    android:id="@+id/et_length"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginTop="15dp"
+                                    android:background="@drawable/border_layout"
+                                    android:gravity="left|top"
+                                    android:inputType="number"
+                                    android:maxLength="8"
+                                    android:paddingLeft="15dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="15dp"
+                                    android:paddingBottom="15dp"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/text_view"
+                                    android:textStyle="normal" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="15dp"
+                                    android:background="#ffffff"
+                                    android:text="Length(inch)"
+                                    android:textColor="@color/black"
+                                    android:textSize="12dp" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:id="@+id/rlBreadth"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                                <EditText
+                                    android:id="@+id/et_breadth"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginTop="15dp"
+                                    android:background="@drawable/border_layout"
+                                    android:gravity="left|top"
+                                    android:inputType="number"
+                                    android:paddingLeft="15dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="15dp"
+                                    android:paddingBottom="15dp"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/text_view"
+                                    android:textStyle="normal" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="15dp"
+                                    android:background="#ffffff"
+                                    android:text="Breadth(inch)"
+                                    android:textColor="@color/black"
+                                    android:textSize="12dp" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:id="@+id/rlHeight"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                                <EditText
+                                    android:id="@+id/et_Height"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginTop="15dp"
+                                    android:background="@drawable/border_layout"
+                                    android:gravity="left|top"
+                                    android:inputType="number"
+                                    android:paddingLeft="15dp"
+                                    android:paddingTop="20dp"
+                                    android:paddingRight="15dp"
+                                    android:paddingBottom="15dp"
+                                    android:singleLine="true"
+                                    android:text=""
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                    android:textColor="@color/black"
+                                    android:textColorHint="@color/text_view"
+                                    android:textStyle="normal" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:layout_marginRight="15dp"
+                                    android:background="#ffffff"
+                                    android:text="Height(inch)"
+                                    android:textColor="@color/black"
+                                    android:textSize="12dp" />
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tv_calculate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right"
+                        android:layout_margin="5dp"
+                        android:text="Calculate"
+                        android:textColor="@color/blue"
+                        android:textSize="14dp" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlVolumetricWeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_VolumetricWeight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:gravity="left|top"
+                            android:inputType="text|textNoSuggestions|textMultiLine"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="Volumetric Weight(KG)"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlExpectedWeight"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_Expectedweight"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:gravity="left|top"
+                            android:inputType="number"
+                            android:maxLength="8"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="Expected Weight (Ton)"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/tv_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/five"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:text="Price Details"/>
+
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardCornerRadius="@dimen/five"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/five"
+                    android:orientation="vertical"
+                    android:padding="@dimen/five">
+
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        >
+
+                        <RadioButton
+                            android:id="@+id/rb_fixedprice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="Fix Price"
+                            android:textSize="@dimen/fifteen" />
+
+                        <RadioButton
+                            android:id="@+id/rb_perton"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Per Ton"
+                            android:textSize="@dimen/fifteen" />
+
+                    </RadioGroup>
+
+                    <RelativeLayout
+                        android:id="@+id/rlExpectedPrice"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_Expectedprice"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:gravity="left|top"
+                            android:inputType="number"
+                            android:maxLength="8"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="Expected Price"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+
+
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Payment Mode : "
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sixteen" />
+
+                        <RadioButton
+                            android:id="@+id/rb_topay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="To Pay"
+                            android:textSize="@dimen/fifteen" />
+
+                        <RadioButton
+                            android:id="@+id/rb_to_billed"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="To Billed"
+                            android:textSize="@dimen/fifteen" />
+
+                    </RadioGroup>
+
+                    <RelativeLayout
+                        android:id="@+id/rlRemark"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_Remark"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:gravity="left|top"
+                            android:inputType="text|textNoSuggestions|textMultiLine"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="Remark"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+
+                    <CheckBox
+                        android:id="@+id/chk_isnegotiaable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten"
+                        android:text="Is Negotiable ?"
+                        android:visibility="visible" />
+
+                    <CheckBox
+                        android:id="@+id/chk_islablour_required"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten"
+                        android:text="Labour required ?" />
+
+                    <RelativeLayout
+                        android:id="@+id/rlLabour"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_Nooflabour"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:gravity="left|top"
+                            android:inputType="number"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="No of Labour"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlRequireddate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_Requireddate"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:clickable="false"
+                            android:cursorVisible="false"
+                            android:focusable="false"
+                            android:focusableInTouchMode="false"
+                            android:gravity="left|top"
+                            android:inputType="text|textNoSuggestions|textMultiLine"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="Required On"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                    android:id="@+id/rlRequiredTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                    <EditText
+                        android:id="@+id/et_RequiredTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="15dp"
+                        android:background="@drawable/border_layout"
+                        android:clickable="false"
+                        android:cursorVisible="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="false"
+                        android:gravity="left|top"
+                        android:inputType="text|textNoSuggestions|textMultiLine"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="20dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="15dp"
+                        android:singleLine="true"
+                        android:text=""
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                        android:textColor="@color/black"
+                        android:textColorHint="@color/text_view"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:background="#ffffff"
+                        android:text="Time"
+                        android:textColor="@color/black"
+                        android:textSize="12dp" />
+
+                </RelativeLayout>
+
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/iv_image"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:scaleType="fitXY"
+                android:layout_margin="@dimen/ten"
+                android:visibility="gone"
+                android:src="@drawable/no_image_available" />
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btn_add_images"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fifteen"
+                android:background="@color/green"
+                android:paddingLeft="@dimen/fifteen"
+                android:paddingRight="@dimen/fifteen"
+                android:text="Add Images"
+                android:visibility="gone"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:textColor="@color/freshwhite" />
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/ten">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/twentyfive"
+                    android:layout_height="@dimen/twentyfive"
+                    android:src="@drawable/ic_card"
+                    android:tint="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/eight">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Load Images"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/twelve" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_vehicle_rc_image"
+                            android:minHeight="@dimen/fifty"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <ImageView
+                            android:visibility="gone"
+                            android:scaleType="centerCrop"
+                            android:layout_gravity="center_horizontal"
+                            android:id="@+id/iv_vehicle_rc_image"
+                            android:layout_width="@dimen/eighty"
+                            android:layout_height="@dimen/eighty"
+                            android:src="@drawable/ic_card" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp">
+
+
+                            <TextView
+                                android:id="@+id/tv_edit_profile_aadhar_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="@dimen/twenty"
+                                android:paddingRight="@dimen/twenty"
+                                android:text="aadhar image"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/twelve" />
+
+                            <TextView
+                                android:layout_marginTop="@dimen/ten"
+                                android:id="@+id/tv_select_vehicle_rc_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/btn_background"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:text="Add Image"
+                                android:textAlignment="center"
+                                android:textColor="@color/white" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </TableRow>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/button_submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/fifteen"
+                android:background="@drawable/btn_background"
+                android:text="Post Load"
+                android:textColor="@color/freshwhite" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragment.MyEarthMoverFragment">
+
+    <RelativeLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/act"
+        android:background="@color/freshwhite">
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/refresh"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/freshwhite">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_earthmover"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+
+        <include layout="@layout/progress_endless" />
+
+        <include layout="@layout/no_record_layout" />
+
+        <include layout="@layout/no_internet_connection" />
+
+        <include layout="@layout/progress_bar" />
+
+    </RelativeLayout>
+
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/button_PostEarthMover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="15dp"
+        android:backgroundTint="@color/md_yellow_A700"
+        android:text="Post Earth mover"
+        android:textColor="@android:color/black"
+        android:theme="@style/MyMaterialTheme"
+        app:strokeColor="@color/md_yellow_700" />
+
+</RelativeLayout>

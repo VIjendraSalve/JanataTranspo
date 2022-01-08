@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#000</color>
+    <color name="colorPrimaryDark">#000</color>
+    <color name="colorAccent">#000</color>
+
+    <color name="freshwhite">#FFF</color>
+    <color name="black">#000</color>
+    <color name="graylight">#757575</color>
+    <color name="apptheme1">#000</color>
+    <color name="apptheme">#ff9324</color>
+    <color name="button_color">#56585d</color>
+    <color name="text_color">#56585d</color>
+    <color name="windowBackground">#F2F2F2</color>
+    <color name="appthemeLight">#2D3E72</color>
+    <color name="md_yellow_700">#FBC02D</color>
+    <color name="md_yellow_A700">#FFD600</color>
+    <color name="darkGrey">#343f55</color>
+
+
+    <!--<color name="apptheme">#336699</color>-->
+
+
+    <color name="light_blue">#3777e6</color>
+    <color name="error_stroke_color">#F27474</color>
+    <color name="warning_stroke_color">#F8BB86</color>
+    <color name="transparent">#55000000</color>
+    <color name="material_stepper_bottom_bar_text">#757575</color>
+
+    <color name="primary_pink">#0088ba</color>
+    <color name="primary_orange">#FBAF3F</color>
+    <color name="primary_blue">#4B9DD6</color>
+    <color name="primary_green">#000</color>
+    <color name="light_gray">#dadbdc</color>
+    <color name="light_gray1">#ECEDEF</color>
+    <color name="text_view">#606060</color>
+    <color name="red">#e91414</color>
+    <color name="black_overlay">#66000000</color>
+    <color name="app_logo_color">#0f99db</color>
+    <color name="logo_orange_color">#FBAF3F</color>
+    <color name="green">#318631</color>
+    <color name="yellow">#ffff00</color>
+    <color name="purple">#634ecf</color>
+    <color name="blue">#2785C5</color>
+    <color name="dark_blue1">#0D2660</color>
+    <color name="dark_blue">#003580</color>
+    <color name="dark">#FF071636</color>
+    <color name="colorGray">#F6F6F6</color>
+    <color name="pin_normal">#6B767E</color>
+    <color name="duskYellow">#F9BB05</color>
+
+    <color name="gradient_start_color">#F6E3CB</color>
+    <color name="gradient_end_color">#18a3fe</color>
+
+
+    <!-- colors for tab and screent text -->
+
+    <color name="tab_indicator_gray">#c0c0c0</color>
+    <color name="intro_title_color">#000000</color>
+    <color name="intro_description_color">#656565</color>
+
+</resources>
