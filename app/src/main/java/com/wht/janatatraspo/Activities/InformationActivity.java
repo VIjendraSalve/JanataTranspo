@@ -40,7 +40,7 @@ public class InformationActivity extends BaseActivity {
         toolbar_title.setText(bundle.getString("title"));
 
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24);
-        upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        upArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 

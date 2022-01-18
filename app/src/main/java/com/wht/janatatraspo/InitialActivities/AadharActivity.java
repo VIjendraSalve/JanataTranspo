@@ -160,13 +160,13 @@ public class AadharActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(getApplicationContext().getResources().getColor(R.color.white));
+        toolbar.setTitleTextColor(getApplicationContext().getResources().getColor(R.color.black));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.apptheme)));
-        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.black)));
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         toolbar_title = findViewById(R.id.toolbar_title);
         toolbar_title.setText("Aadhar Verification");
-        toolbar_title.setTextColor(getResources().getColor(R.color.white));
+        toolbar_title.setTextColor(getResources().getColor(R.color.black));
         Helper_Method.setFontToolbard(_act, toolbar_title);
 
         //Profile Image Upload
@@ -271,8 +271,8 @@ public class AadharActivity extends BaseActivity {
             private final Pattern pattern = Pattern.compile("^(\\d{4}"+space+"{1}){0,3}\\d{1,4}$"); // check whether we need to modify or not
             @Override
             public void onTextChanged(CharSequence s, int st, int be, int count) {
-                String currentText = etaadhar.getText().toString();
 
+                String currentText = etaadhar.getText().toString();
                 if (currentText.isEmpty() || pattern.matcher(currentText).matches())
                     return; // no need to modify
                 String numbersOnly = currentText.trim().replaceAll("[^\\d.]", "");; // remove everything but numbers
@@ -290,6 +290,7 @@ public class AadharActivity extends BaseActivity {
                 } else {
                     tvVerify.setVisibility(View.GONE);
                 }
+
             }
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {

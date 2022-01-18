@@ -277,15 +277,19 @@ public class MyLoadFragment extends Fragment implements View.OnClickListener, Sw
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setItemAnimator(new DefaultItemAnimator());
                             recyclerView.setAdapter(mAdapter);
+                            recyclerView.getRecycledViewPool().clear();
                             mAdapter.notifyDataSetChanged();
+
+                            if(loadArrayList.size() > 0){
+                                noRecordLayout.setVisibility(GONE);
+                            }else {
+                                noRecordLayout.setVisibility(View.VISIBLE);
+                            }
 
                         }
                         swipeRefreshLayout.setRefreshing(false);
-                        if(loadArrayList.size() > 0){
-                            noRecordLayout.setVisibility(GONE);
-                        }else {
-                            noRecordLayout.setVisibility(View.VISIBLE);
-                        }
+
+
 
 
                     } catch (JSONException e) {

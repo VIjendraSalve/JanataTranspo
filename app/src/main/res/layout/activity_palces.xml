@@ -81,7 +81,7 @@
             android:layout_height="40dp"
             android:layout_alignParentBottom="true"
             android:background="@color/apptheme"
-            android:text="Pick Location"
+            android:text="Get Location"
             android:textColor="@color/white"
             android:textSize="14dp" />
 

@@ -29,7 +29,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:background="@drawable/edittext_background"
-                    android:entries="@array/load_type"
                     android:gravity="center_vertical" />
 
                 <ImageView
@@ -93,11 +92,31 @@
                         android:layout_marginTop="@dimen/ten">
 
                         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spnr_state"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/edittext_background"
+                            android:gravity="center_vertical" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:layout_marginBottom="5dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten">
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
                             android:id="@+id/spnr_pickup"
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:background="@drawable/edittext_background"
-                            android:entries="@array/lost_reasons"
                             android:gravity="center_vertical" />
 
                         <ImageView
@@ -144,10 +163,31 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="#ffffff"
-                            android:text="Pickup LatLong "
+                            android:text="Pickup Address "
                             android:textColor="@color/black"
                             android:textSize="12dp" />
                     </RelativeLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten">
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spnr_Dropstate"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/edittext_background"
+                            android:gravity="center_vertical" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:layout_marginBottom="5dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                    </FrameLayout>
 
                     <FrameLayout
                         android:layout_width="match_parent"
@@ -159,7 +199,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="45dp"
                             android:background="@drawable/edittext_background"
-                            android:entries="@array/win_reasons"
                             android:gravity="center_vertical" />
 
                         <ImageView
@@ -206,7 +245,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="#ffffff"
-                            android:text="Destination Latlong"
+                            android:text="Destination Address"
                             android:textColor="@color/black"
                             android:textSize="12dp" />
                     </RelativeLayout>
@@ -1000,7 +1039,7 @@
                                 android:paddingBottom="10dp"
                                 android:text="Add Image"
                                 android:textAlignment="center"
-                                android:textColor="@color/white" />
+                                android:textColor="@color/black" />
                         </LinearLayout>
 
                     </LinearLayout>
@@ -1016,7 +1055,7 @@
                 android:layout_marginTop="@dimen/fifteen"
                 android:background="@drawable/btn_background"
                 android:text="Post Load"
-                android:textColor="@color/freshwhite" />
+                android:textColor="@color/black" />
 
         </LinearLayout>
 

@@ -272,6 +272,7 @@ public class MyEarthMoverFragment extends Fragment implements View.OnClickListen
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setItemAnimator(new DefaultItemAnimator());
                             recyclerView.setAdapter(mAdapter);
+                            recyclerView.getRecycledViewPool().clear();
                             mAdapter.notifyDataSetChanged();
 
 

@@ -461,6 +461,20 @@ public interface Interface {
             @Field("api_token") String api_token
             );
 
+
+    @FormUrlEncoded
+    @POST(IUrls.URL_CUSTOMER_PAYMENT_TRANSO)
+    public Call<ResponseBody> POSTAcceptPayment(
+            @Field("transaction_id") String transaction_id,
+            @Field("transaction_date") String transaction_date,
+            @Field("amount") String amount,
+            @Field("loader_id") String loader_id,
+            @Field("payment_status") String payment_status,
+            @Field("bid_id") String bid_id,
+            @Field("user_id") String user_id,
+            @Field("api_token") String api_token
+    );
+
     @FormUrlEncoded
     @POST(IUrls.URL_ACCEPT_EARTHMOVER_BID)
     public Call<ResponseBody> POSTAcceptEarthMoverBid(

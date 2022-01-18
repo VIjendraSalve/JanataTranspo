@@ -56,8 +56,15 @@ public class MyEarthMoverListActivityAdapter extends RecyclerView.Adapter<MyEart
         holder.tvWeight.setTypeface(holder.tvWeight.getTypeface(), Typeface.BOLD);
         holder.tvTitle.setTypeface(holder.tvTitle.getTypeface(), Typeface.BOLD);
         holder.tv_expectedprice.setTypeface(holder.tv_expectedprice.getTypeface(), Typeface.BOLD);
-        holder.tvTitle.setText(Shared_Preferences.getPrefs(context, IConstant.USER_FIRST_NAME) + " "
-                + Shared_Preferences.getPrefs(context, IConstant.USER_LAST_NAME));
+        if (Shared_Preferences.getPrefs(context, IConstant.USER_FIRST_NAME) != null &&
+                !Shared_Preferences.getPrefs(context, IConstant.USER_FIRST_NAME).isEmpty() &&
+                !Shared_Preferences.getPrefs(context, IConstant.USER_FIRST_NAME).equals("null")) {
+
+            holder.tvTitle.setText(Shared_Preferences.getPrefs(context, IConstant.USER_FIRST_NAME) + " "
+                    + Shared_Preferences.getPrefs(context, IConstant.USER_LAST_NAME));
+        }else {
+            holder.tvTitle.setText("");
+        }
         holder.tvpostedOn.setText(DateTimeFormat.getDate2(earthMover.getCreated_at()));
         holder.tv_pick_drop_loaction.setText("- "+" "+earthMover.getDestination_loaction_name());
         holder.tv_transport_type.setText("- "+" " + earthMover.getTransport_type());

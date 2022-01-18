@@ -459,6 +459,9 @@
     <string name="timepricedetails"><![CDATA[Time & Price Details]]></string>
     <string name="bloodgroup">Blood Group</string>
     <string name="billingAddress">Billing Address</string>
+    <string name="title_customer_details">Bidder Details</string>
+    <string name="title_ride_status">Ride Status</string>
+    <string name="pay_advance">Pay Advance</string>
 
     <string-array name="stepLabels">
         <item>Pancard</item>

@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.ContentResolver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -28,7 +27,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.wht.janatatraspo.R;
 
-import org.json.JSONException;
+
 import org.json.JSONObject;
 
 import java.io.File;
@@ -41,14 +40,13 @@ import java.util.Date;
 import java.util.Random;
 
 
-public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
-
+public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public static final String INTENT_FILTER = "INTENT_FILTER";
     //private RemindersDatabase db;
-    private String image_path;
+    private String image_path, json_image_path;
     private DatabaseSqliteHandler db;
     private JSONObject jsonObject;
-    private String title = "", message, image;
+    private String title = "HRCabs", message, image;
     private BroadcastReceiver myReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -80,36 +78,30 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
 
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
-        registerReceiver(myReceiver, new IntentFilter(MyAndroidFirebaseMsgService.INTENT_FILTER));
-        Log.d("Notification1234", "onMessageReceived: " + remoteMessage.getData());
-//        Log.d("Notification1234", "onMessageReceived: "+remoteMessage.getNotification().getChannelId());
-        //Log.d("Notification1234", "From: " + remoteMessage.getFrom());
+        Log.d("Mytag", "call:onMessageReceived" + remoteMessage.getData());
+        Log.d("Mytag", "call:onMessageReceived" + remoteMessage.getNotification());
+
+        //notification_id=5 Accept Ride Request by driver notification
+        //notification_id=1 general notification
+        //notification_id=2 Bill notification
 
         try {
-
             jsonObject = new JSONObject(remoteMessage.getData());
 
             if (jsonObject.has("image")) {
+                json_image_path = jsonObject.getString("image");
                 image = jsonObject.getString("image");
-                //image = "http://wetap.in/community/assets/uploads/notifications/img_1594655188.png";
-            }
-            Log.d("Notification", "onMessageReceived: " + jsonObject.getString("title"));
-            Log.d("Notification", "onMessageReceived: " + jsonObject.getString("body"));
-            Log.d("Notification", "onMessageReceived: " + jsonObject.getString("link"));
-            showNotification(
-                    jsonObject.getString("title"),
-                    jsonObject.getString("body"),
-                    jsonObject.getString("link")
-            );
 
-        } catch (JSONException e) {
+            }
+            if (!jsonObject.getString("title").isEmpty()) {
+                title = jsonObject.getString("title");
+            }
+            showNotification(jsonObject.getString("body"));
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-
-        Intent intent = new Intent(INTENT_FILTER);
-        sendBroadcast(intent);
-
-
     }
 
     @Override
@@ -120,18 +112,18 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
             LocalBroadcastManager.getInstance(this).unregisterReceiver(myReceiver);
     }
 
-    private void showNotification(String title, String message, String link) {
-        Log.d("Notific", "showNotification: " + message + "," + title + "," + link);
+    private void showNotification(String message) {
 
-        Intent intent = new Intent(this, ActivityNotification.class);
+        Intent i = new Intent(this, ActivityNotification.class);
         Bundle bundle = new Bundle();
-        intent.putExtras(bundle);
+        //bundle.putInt(Constants.FRAGMENT_ID, R.id.nav_my_dash);
+        i.putExtras(bundle);
+        i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        i.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         db = DatabaseSqliteHandler.getInstance(this);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        db.insert_notification(title, message, image, link);
+        db.insert_notification(title, message, image, "");
         int requestCode = ("someString" + System.currentTimeMillis()).hashCode();
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, i, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE
@@ -144,7 +136,7 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
                 .setSummaryText(summaryText)
                 .bigPicture(bigPicture);*/
 
-        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        Bitmap icon = BitmapFactory.decodeResource(getResources(), R.drawable.app_logo);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this)
                 .setAutoCancel(true)
                 .setContentTitle(title)
@@ -153,11 +145,10 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
                 .setSmallIcon(R.drawable.app_logo)
                 .setSound(alarmSound)
                 .setChannelId("vijendra")
-                .setColor(getResources().getColor(R.color.colorPrimary))
                 .setContentIntent(pendingIntent)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message));
 
-        MediaPlayer mp = MediaPlayer.create(MyAndroidFirebaseMsgService.this, R.raw.samsung_s);
+        MediaPlayer mp = MediaPlayer.create(MyFirebaseMessagingService.this, R.raw.samsung_s);
         mp.start();
         if (jsonObject.has("image")) {
             if (image != null && !image.isEmpty() && !image.equals("null")) {
@@ -204,8 +195,6 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
 
         int m = (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE);
         manager.notify(m, builder.build());
-
-
     }
 
     public void SaveImage(Bitmap finalBitmap) {

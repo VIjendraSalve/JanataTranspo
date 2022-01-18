@@ -44,6 +44,7 @@ public class IUrls {
     public static final String SALES_PERSON_BASE_URL = "http://salesjt.com/GetAuthorise_Sponsor.asmx/";
     public static final String URL_SALES_PERSON_VERIFICATION = "get_auth_sponsor";
     public static final String URL_ACCEPT_LOAD_BID = "app_cust_accept_add";
+    public static final String URL_CUSTOMER_PAYMENT_TRANSO = "app_cust_payment_transpo";
     public static final String URL_ACCEPT_EARTHMOVER_BID = "app_cust_accept_earth_mover_add";
 
 

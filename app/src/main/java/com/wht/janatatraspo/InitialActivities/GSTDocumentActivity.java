@@ -120,13 +120,13 @@ public class GSTDocumentActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(getApplicationContext().getResources().getColor(R.color.white));
+        toolbar.setTitleTextColor(getApplicationContext().getResources().getColor(R.color.black));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.apptheme)));
-        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.black)));
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         toolbar_title = findViewById(R.id.toolbar_title);
         toolbar_title.setText("GST Verification");
-        toolbar_title.setTextColor(getResources().getColor(R.color.white));
+        toolbar_title.setTextColor(getResources().getColor(R.color.black));
         Helper_Method.setFontToolbard(_act, toolbar_title);
 
         //Adhar Photo Upload Image

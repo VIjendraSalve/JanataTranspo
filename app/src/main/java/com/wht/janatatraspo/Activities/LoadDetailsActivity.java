@@ -38,7 +38,7 @@ public class LoadDetailsActivity extends BaseActivity {
         toolbar_title.setText("Load Details");
         final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back_24);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(upArrow);
-        upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        upArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -101,7 +101,7 @@ public class LoadDetailsActivity extends BaseActivity {
         tv_breadth.setText(loadArrayList.get(position).getBreadth());
         tv_height.setText(loadArrayList.get(position).getHeight());
         tv_expectedweight.setText(loadArrayList.get(position).getExpected_weight() + " Ton");
-        //tv_vehicleName.setText(loadArrayList.get(position).lo());
+        tv_vehicleName.setText(loadArrayList.get(position).getTransport_type());
 
     }
 

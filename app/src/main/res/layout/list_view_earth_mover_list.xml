@@ -234,7 +234,7 @@
                         android:background="@drawable/btn_background"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
-                        android:textColor="@color/freshwhite" />
+                        android:textColor="@color/black" />
 
 
                 </RelativeLayout>

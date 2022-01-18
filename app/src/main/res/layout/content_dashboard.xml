@@ -17,11 +17,11 @@
             android:layout_height="45dp"
             android:minHeight="?actionBarSize"
             app:tabGravity="center"
-            app:tabTextColor="@color/freshwhite"
-            app:tabIndicatorColor="@color/freshwhite"
+            app:tabTextColor="@color/black"
+            app:tabIndicatorColor="@color/darkGrey"
             app:tabIndicatorHeight="2dp"
             app:tabBackground="@drawable/tab_color_selector"
-            app:tabSelectedTextColor="@color/apptheme"
+            app:tabSelectedTextColor="@color/white"
             app:tabMode="fixed">
 
         </com.google.android.material.tabs.TabLayout>

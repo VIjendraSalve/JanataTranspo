@@ -135,13 +135,13 @@ public class UpdateProfileActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle(Helper_Method.toTitleCase("Update Profile"));
         setSupportActionBar(toolbar);
-        toolbar.setTitleTextColor(getApplicationContext().getResources().getColor(R.color.white));
+        toolbar.setTitleTextColor(getApplicationContext().getResources().getColor(R.color.black));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(getApplicationContext().getResources().getColor(R.color.colorPrimary)));
-        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        toolbar.getNavigationIcon().setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         toolbar_title = findViewById(R.id.toolbar_title);
         toolbar_title.setText("Update Profile");
-        toolbar_title.setTextColor(getResources().getColor(R.color.white));
+        toolbar_title.setTextColor(getResources().getColor(R.color.black));
 
         currentDate = Calendar.getInstance().getTime();
         System.out.println("Current time => " + currentDate);

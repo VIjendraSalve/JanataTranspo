@@ -58,6 +58,27 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten">
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spnr_state"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/edittext_background"
+                            android:gravity="center_vertical" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:layout_marginBottom="5dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/five">
 
                         <com.toptoche.searchablespinnerlibrary.SearchableSpinner
@@ -111,7 +132,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="@color/freshwhite"
-                            android:text="Destination Latlong"
+                            android:text="Destination Address"
                             android:textColor="@color/black"
                             android:textSize="12dp" />
                     </RelativeLayout>
@@ -177,7 +198,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="#ffffff"
-                            android:text="Expected Price Per Hour"
+                            android:text="Approximate Price Per Hours "
                             android:textColor="@color/black"
                             android:textSize="12dp" />
                     </RelativeLayout>
@@ -188,13 +209,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/ten"
                         android:text="Is Negotiable ?"
+                        android:visibility="gone"
                          />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/five"
-                        android:text="How much time you required ?"
+                        android:text="Working type :"
                         android:textColor="@color/black"
                         android:textSize="@dimen/fifteen" />
 
@@ -314,6 +336,48 @@
 
                     </LinearLayout>
 
+                    <RelativeLayout
+                        android:id="@+id/rlTotalAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        >
+
+                        <EditText
+                            android:id="@+id/et_TotalAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:gravity="left|top"
+                            android:inputType="number"
+                            android:maxLength="10"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:editable="false"
+                            android:focusable="false"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="Total Amount"
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+
+                    </RelativeLayout>
+
 
                     <RelativeLayout
                         android:id="@+id/rlRemark"
@@ -391,7 +455,7 @@
                             android:layout_marginLeft="15dp"
                             android:layout_marginRight="15dp"
                             android:background="#ffffff"
-                            android:text="Required On"
+                            android:text="Required on"
                             android:textColor="@color/black"
                             android:textSize="12dp" />
 
@@ -453,7 +517,7 @@
                 android:background="@drawable/btn_background"
                 android:layout_marginBottom="@dimen/twenty"
                 android:text="Submit"
-                android:textColor="@color/freshwhite" />
+                android:textColor="@color/black" />
 
         </LinearLayout>
 

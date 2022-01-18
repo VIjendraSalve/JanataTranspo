@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wht.janatatraspo.Activities.BidListActivity;
 import com.wht.janatatraspo.Activities.LoadDetailsActivity;
+import com.wht.janatatraspo.Activities.TransportLoadDetailsActivity;
 import com.wht.janatatraspo.Constant.IConstant;
 import com.wht.janatatraspo.Helpers.Helper_Method;
 import com.wht.janatatraspo.Model.Load;
@@ -53,8 +54,16 @@ public class MyLoadListActivityAdapter extends RecyclerView.Adapter<MyLoadListAc
         holder.tvWeight.setTypeface(holder.tvWeight.getTypeface(), Typeface.BOLD);
         holder.tvTitle.setTypeface(holder.tvTitle.getTypeface(), Typeface.BOLD);
         holder.tv_expectedprice.setTypeface(holder.tv_expectedprice.getTypeface(), Typeface.BOLD);
-        holder.tvTitle.setText(Shared_Preferences.getPrefs(context, IConstant.USER_FIRST_NAME) + " "
-                + Shared_Preferences.getPrefs(context, IConstant.USER_LAST_NAME));
+
+        if (Shared_Preferences.getPrefs(context, IConstant.USER_FIRST_NAME) != null &&
+                !Shared_Preferences.getPrefs(context, IConstant.USER_FIRST_NAME).isEmpty() &&
+                !Shared_Preferences.getPrefs(context, IConstant.USER_FIRST_NAME).equals("null")) {
+
+            holder.tvTitle.setText(Shared_Preferences.getPrefs(context, IConstant.USER_FIRST_NAME) + " "
+                    + Shared_Preferences.getPrefs(context, IConstant.USER_LAST_NAME));
+        }else {
+            holder.tvTitle.setText("");
+        }
         holder.tvpostedOn.setText(DateTimeFormat.getDate2(load.getCreated_at()));
         holder.tv_required_on.setText("Required on : " + DateTimeFormat.getDate31(load.getRequired_date()));
         holder.tvWeight.setText("- " + load.getNumber_of_ton() + " Tons Weight");
@@ -81,7 +90,8 @@ public class MyLoadListActivityAdapter extends RecyclerView.Adapter<MyLoadListAc
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, LoadDetailsActivity.class);
+                //Intent intent = new Intent(context, LoadDetailsActivity.class);
+                Intent intent = new Intent(context, TransportLoadDetailsActivity.class);
                 intent.putParcelableArrayListExtra("LoadListDisplay", loadArrayList);
                 intent.putExtra("PositionOfLoad", position);
                 context.startActivity(intent);

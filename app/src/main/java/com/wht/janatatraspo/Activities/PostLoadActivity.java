@@ -66,6 +66,7 @@ import com.wht.janatatraspo.Location.ActivityGetLocation;
 import com.wht.janatatraspo.MainActivity;
 import com.wht.janatatraspo.Model.CityObject;
 import com.wht.janatatraspo.Model.ImagePOJO;
+import com.wht.janatatraspo.Model.State;
 import com.wht.janatatraspo.Model.VehicleType;
 import com.wht.janatatraspo.R;
 import com.wht.janatatraspo.my_library.Camera;
@@ -128,11 +129,25 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
     private ArrayAdapter<CityObject> spinnerPickupCity_Adapter;
     private String strPickupCityId = "0", strPickuCityName;
     private String loaderID = "";
+
+    //PickupCity Spinner Zone destination
+    private ArrayList<State> statePickupArrayList;
+    private SearchableSpinner spnr_statePickup;
+    private ArrayAdapter<State> spinnerStatePick_Adapter;
+    private String strStatePickupId = "0", strStatePickName;
+
+    //DropCity Spinner Zone destination
+    private ArrayList<State> stateDropArrayList;
+    private SearchableSpinner spnr_stateDrop;
+    private ArrayAdapter<State> spinnerStateDrop_Adapter;
+    private String strStateDropupId = "0", strStateDropName;
+
     //City Spinner Zone destination
     private ArrayList<CityObject> destinationupcityObjectArrayList;
     private SearchableSpinner spinnerDestinationCity;
     private ArrayAdapter<CityObject> spinnerDestination_Adapter;
     private String strDestinationId = "0", strDestinationName;
+
     // load type
     private RadioButton rb_fullLoad, rb_partload;
     private String loadType = "2"; // loader_type 1:part loader 2:full load
@@ -141,8 +156,8 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
     private RadioButton rb_topay, rb_to_billed;
     private String isToPay = "2"; // payment_mode:   1:to be billed 2:to pay
     //pick up n drop loaction
-    private String pickuplat = "", pickuplong = "";
-    private String droplat = "", droplong = "";
+    private String pickuplat = "", pickuplong = "", pickupAddress= "";
+    private String droplat = "", droplong = "", dropAddress="";
     //multiple images
     private RecyclerView recyclerViewImages;
     private GridLayoutManager gridLayoutManager;
@@ -183,7 +198,7 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
         toolbar_title.setText("Post Load");
 
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24);
-        upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        upArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -266,6 +281,10 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
         spinnerPickupCity = findViewById(R.id.spnr_pickup);
         spinnerDestinationCity = findViewById(R.id.spnr_dest);
         spnr_loadtype = findViewById(R.id.spnr_loadtype);
+        spnr_statePickup = findViewById(R.id.spnr_state);
+        spnr_stateDrop = findViewById(R.id.spnr_Dropstate);
+
+
 
         rb_fullLoad = findViewById(R.id.rb_fullLoad);
         rb_partload = findViewById(R.id.rb_partload);
@@ -621,7 +640,7 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
             }
         });
 
-        webcallPickCityList("");
+        webcallPickStateList();
         //webcallDestinationCityList("");
         getVehicleTypeList();
         launchSomeActivity = registerForActivityResult(
@@ -635,7 +654,8 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                             Log.d("valueVIJ", "onActivityResult: " + data.getStringExtra("lagn"));
                             pickuplat = data.getStringExtra("lat");
                             pickuplong = data.getStringExtra("lagn");
-                            et_Pickuplatlong.setText("Latitude : " + pickuplat + ", Longitude : " + pickuplong);
+                            pickupAddress = data.getStringExtra("Address");
+                            et_Pickuplatlong.setText(pickupAddress+"\nLatitude : " + pickuplat + ", Longitude : " + pickuplong);
                         }
                     }
                 });
@@ -651,7 +671,8 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                             Log.d("valueVIJ1", "onActivityResult: " + data.getStringExtra("lagn"));
                             droplat = data.getStringExtra("lat");
                             droplong = data.getStringExtra("lagn");
-                            et_Destinationlatlong.setText("Latitude : " + droplat + ", Longitude : " + droplong);
+                            dropAddress = data.getStringExtra("Address");
+                            et_Destinationlatlong.setText(dropAddress+"\nLatitude : " + droplat + ", Longitude : " + droplong);
                         }
                     }
                 });
@@ -694,13 +715,13 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
     private boolean validateFields() {
 
         boolean result = true;
+
         if (!MyValidator.isValidField(et_length)) {
             result = false;
         }
         if (!MyValidator.isValidField(et_breadth)) {
             result = false;
         }
-
         if (!MyValidator.isValidField(et_Height)) {
             result = false;
         }
@@ -730,10 +751,6 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
         }
 
         if (!MyValidator.isValidField(et_Remark)) {
-            result = false;
-        }
-
-        if (!MyValidator.isValidField(et_Nooflabour)) {
             result = false;
         }
 
@@ -901,12 +918,171 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
         et_Requireddate.setText(dateFormat.format(myCalendar.getTime()));
     }
 
+    private void webcallPickStateList() {
+
+        Helper_Method.showProgressBar(_act, "Loading...");
+
+        Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
+        Call<ResponseBody> result = api.POSTState("101");
+
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String output = "";
+                try {
+                    statePickupArrayList = new ArrayList<>();
+                    statePickupArrayList.clear();
+
+                    stateDropArrayList = new ArrayList<>();
+                    stateDropArrayList.clear();
+
+                    output = response.body().string();
+                    Log.d("my_tag", "onResponseSachin: " + output);
+                    try {
+                        JSONObject i = new JSONObject(output);
+                        String stringCode = i.getString("result");
+                        String stringMsg = i.getString(IConstant.RESPONSE_MESSAGE);
+
+
+                        if (stringCode.equalsIgnoreCase("true")) {
+                            statePickupArrayList.add(new State("0", "Select Pickup State", "0"));
+                            stateDropArrayList.add(new State("0", "Select Destination State", "0"));
+                            JSONArray jsonArray = i.getJSONArray("states_list");
+                            //pickupcityObjectArrayList.add(new CountryNameObject("0", "Select Country ", "Date"));
+                            for (int index = 0; index < jsonArray.length(); index++) {
+                                try {
+                                    statePickupArrayList.add(new State(jsonArray.getJSONObject(index)));
+                                    stateDropArrayList.add(new State(jsonArray.getJSONObject(index)));
+
+                                } catch (JSONException e) {
+
+                                    e.printStackTrace();
+                                    // scheduleDismiss();
+
+                                }
+                            }
+
+                            if (statePickupArrayList.size() == 0) {
+
+                                Helper_Method.dismissProgessBar();
+
+
+                            } else {
+
+                                // scheduleDismiss();
+
+                                spnr_statePickup.setTitle("Select State");
+                                spinnerStatePick_Adapter = new ArrayAdapter<State>(_act, android.R.layout.simple_spinner_item, statePickupArrayList);
+                                spinnerStatePick_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spnr_statePickup.setAdapter(spinnerStatePick_Adapter);
+                                spnr_statePickup.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        // On selecting a spinner item
+                                        String item = adapterView.getItemAtPosition(i).toString();
+                                        //showToast(siteTaskCategoryObjArrayList.get(i).task);
+                                        //category = categoryList.get(i).getCategoryID();
+                                        strStatePickupId = statePickupArrayList.get(i).id;
+                                        strStatePickName = statePickupArrayList.get(i).name;
+                                        if(i != 0)
+                                            webcallPickCityList(strStatePickupId);
+
+
+                                    }
+
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+                                        return;
+                                    }
+                                });
+
+
+                                spnr_stateDrop.setTitle("Select Destination State");
+                                spinnerStateDrop_Adapter = new ArrayAdapter<State>(_act, android.R.layout.simple_spinner_item, stateDropArrayList);
+                                spinnerStateDrop_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spnr_stateDrop.setAdapter(spinnerStateDrop_Adapter);
+                                spnr_stateDrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        // On selecting a spinner item
+                                        String item = adapterView.getItemAtPosition(i).toString();
+                                        //showToast(siteTaskCategoryObjArrayList.get(i).task);
+                                        //category = categoryList.get(i).getCategoryID();
+                                        strStateDropupId = stateDropArrayList.get(i).id;
+                                        strStateDropName = stateDropArrayList.get(i).name;
+                                        if(i != 0)
+                                        webcallDestinationCityList(strStateDropupId);
+
+                                    }
+
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+                                        return;
+                                    }
+                                });
+
+
+                                if (statePickupArrayList.size() == 0) {
+
+                                } else {
+                                    /*if (strActionFlag.equalsIgnoreCase(IConstant.UPDATE)) {
+                                        if (driverListObject.city != null && !driverListObject.city.isEmpty() && !driverListObject.city.equals("null")) {
+
+                                            for (int k = 0; k < pickupcityObjectArrayList.size(); k++) {
+                                                if (pickupcityObjectArrayList.get(k).getId().equals(driverListObject.city)) {
+                                                    spinnerPickupCity.setSelection(k);
+                                                }
+                                            }
+                                        } else {
+
+                                        }
+                                    }*/
+
+                                }
+
+
+                            }
+
+                        } else {
+                            pickupcityObjectArrayList.clear();
+                            spinnerPickupCity.setTitle("Select Pickup City");
+                            spinnerPickupCity_Adapter = new ArrayAdapter<CityObject>(_act, android.R.layout.simple_spinner_item, pickupcityObjectArrayList);
+                            spinnerPickupCity_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerPickupCity.setAdapter(spinnerPickupCity_Adapter);
+                            // Helper_Method.toaster(_act, stringMsg);
+                            // scheduleDismiss();
+                            //  Helper_Method.dismissProgessBar();
+
+
+                        }
+                    } catch (JSONException e) {
+                        //scheduleDismiss();
+                        Helper_Method.dismissProgessBar();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //scheduleDismiss();
+                    Helper_Method.dismissProgessBar();
+
+                } finally {
+                    Helper_Method.dismissProgessBar();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+                Log.d("Issue", getResources().getString(R.string.lbl_technical_error));
+                //scheduleDismiss();
+                Helper_Method.dismissProgessBar();
+
+            }
+        });
+    }
+
     private void webcallPickCityList(String strStateId) {
 
         Helper_Method.showProgressBar(_act, "Loading...");
 
         Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
-        Call<ResponseBody> result = api.POSTCity("");
+        Call<ResponseBody> result = api.POSTCity(strStateId);
 
         result.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -929,13 +1105,13 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
 
                         if (stringCode.equalsIgnoreCase("true")) {
                             pickupcityObjectArrayList.add(new CityObject("0", "Select Pickup City", "0"));
-                            destinationupcityObjectArrayList.add(new CityObject("0", "Select Destination City", "0"));
+                            //destinationupcityObjectArrayList.add(new CityObject("0", "Select Destination City", "0"));
                             JSONArray jsonArray = i.getJSONArray("city_list");
                             //pickupcityObjectArrayList.add(new CountryNameObject("0", "Select Country ", "Date"));
                             for (int index = 0; index < jsonArray.length(); index++) {
                                 try {
                                     pickupcityObjectArrayList.add(new CityObject(jsonArray.getJSONObject(index)));
-                                    destinationupcityObjectArrayList.add(new CityObject(jsonArray.getJSONObject(index)));
+                                    //destinationupcityObjectArrayList.add(new CityObject(jsonArray.getJSONObject(index)));
 
                                 } catch (JSONException e) {
 
@@ -975,27 +1151,6 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                                     }
                                 });
 
-
-                                spinnerDestinationCity.setTitle("Select Destination City");
-                                spinnerDestination_Adapter = new ArrayAdapter<CityObject>(_act, android.R.layout.simple_spinner_item, destinationupcityObjectArrayList);
-                                spinnerDestination_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-                                spinnerDestinationCity.setAdapter(spinnerDestination_Adapter);
-                                spinnerDestinationCity.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                        // On selecting a spinner item
-                                        String item = adapterView.getItemAtPosition(i).toString();
-                                        //showToast(siteTaskCategoryObjArrayList.get(i).task);
-                                        //category = categoryList.get(i).getCategoryID();
-                                        strDestinationId = destinationupcityObjectArrayList.get(i).id;
-                                        strDestinationName = destinationupcityObjectArrayList.get(i).city_name;
-
-
-                                    }
-
-                                    public void onNothingSelected(AdapterView<?> adapterView) {
-                                        return;
-                                    }
-                                });
 
 
                                 if (pickupcityObjectArrayList.size() == 0) {
@@ -1062,7 +1217,7 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
         Helper_Method.showProgressBar(_act, "Loading...");
 
         Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
-        Call<ResponseBody> result = api.POSTCity("");
+        Call<ResponseBody> result = api.POSTCity(strStateId);
 
         result.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -1358,6 +1513,11 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
     protected void onResume() {
         super.onResume();
         // startActivity(new Intent(this,MainActivity.class));
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 
     @Override

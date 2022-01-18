@@ -22,6 +22,7 @@ public class EarthMoverBid implements Parcelable {
     private String last_name;
     private String image;
     private String business_name;
+    private String mobile_no;
 
     public EarthMoverBid(JSONObject object) {
         try {
@@ -40,6 +41,7 @@ public class EarthMoverBid implements Parcelable {
             this.last_name = object.getString("last_name");
             this.image = object.getString("image");
             this.business_name = object.getString("business_name");
+            this.mobile_no = object.getString("mobile_no");
 
 
         } catch (Exception e) {
@@ -63,6 +65,7 @@ public class EarthMoverBid implements Parcelable {
         last_name = in.readString();
         image = in.readString();
         business_name = in.readString();
+        mobile_no = in.readString();
     }
 
     @Override
@@ -82,6 +85,7 @@ public class EarthMoverBid implements Parcelable {
         dest.writeString(last_name);
         dest.writeString(image);
         dest.writeString(business_name);
+        dest.writeString(mobile_no);
     }
 
     @Override
@@ -219,5 +223,13 @@ public class EarthMoverBid implements Parcelable {
 
     public void setBusiness_name(String business_name) {
         this.business_name = business_name;
+    }
+
+    public String getMobile_no() {
+        return mobile_no;
+    }
+
+    public void setMobile_no(String mobile_no) {
+        this.mobile_no = mobile_no;
     }
 }

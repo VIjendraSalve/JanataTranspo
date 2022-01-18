@@ -190,4 +190,7 @@ public interface IConstant {
     String DRIVING_LICENSES_NO = "DRIVING_LICENSES_NO";
     String IS_DRIVER_VERIFIED = "IS_DRIVER_VERIFIED";
     String VehicleSelected = "VehicleSelected";
+    String TranspoBidList = "TranspoBidList";
+    String Position = "Position";
+    String Commission = "Commission";
 }

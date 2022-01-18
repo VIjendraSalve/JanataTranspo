@@ -190,7 +190,7 @@
                     android:paddingRight="10dp"
                     android:text="Accept"
                     android:textAllCaps="true"
-                    android:textColor="@color/freshwhite"
+                    android:textColor="@color/black"
                     android:textSize="10dp"
                     android:textStyle="bold" />
 

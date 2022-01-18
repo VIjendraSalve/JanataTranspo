@@ -12,6 +12,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.Settings;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MenuItem;
@@ -57,6 +59,7 @@ import com.wht.janatatraspo.Helpers.RecyclerItemClickListener;
 import com.wht.janatatraspo.Location.ActivityGetLocation;
 import com.wht.janatatraspo.MainActivity;
 import com.wht.janatatraspo.Model.CityObject;
+import com.wht.janatatraspo.Model.State;
 import com.wht.janatatraspo.Model.VehicleType;
 import com.wht.janatatraspo.R;
 import com.wht.janatatraspo.my_library.Constants;
@@ -86,14 +89,14 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
     ActivityResultLauncher<Intent> launchSomeActivity = null, launchDropActivity = null;
     private Activity _act;
     private AppCompatButton button_submit;
-    private String isNegotiable = "0", isHourly = "1";
+    private String isNegotiable = "2", isHourly = "1";
     //vehicle type
     private ArrayList<VehicleType> vehicleTypeArrayList;
     private RecyclerView recyclerViewVehicleType;
     private VehicleListActivityAdapter mAdapter;
     private String vehicleType = "";
     //other
-    private EditText et_Destinationlatlong, et_Expectedprice, et_hours, et_hoursPerDay, et_NoofDays, et_Requireddate, et_remark;
+    private EditText et_Destinationlatlong, et_Expectedprice, et_hours, et_hoursPerDay, et_NoofDays, et_Requireddate, et_remark, et_TotalAmount;
     private MaterialCheckBox chk_isnegotiaable;
     private RadioButton rb_hourly, rb_daily;
     private RelativeLayout rlHour;
@@ -107,6 +110,12 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
     private EditText et_RequiredTime;
     private String requiredTime="00:00";
 
+    //DropCity Spinner Zone destination
+    private ArrayList<State> stateDropArrayList;
+    private SearchableSpinner spnr_stateDrop;
+    private ArrayAdapter<State> spinnerStateDrop_Adapter;
+    private String strStateDropupId = "0", strStateDropName;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -116,10 +125,10 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         TextView toolbar_title = toolbar.findViewById(R.id.toolbar_title);
-        toolbar_title.setText("Add Earth Mover Request ");
+        toolbar_title.setText("Earth Mover Request ");
 
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24);
-        upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        upArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -155,6 +164,137 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
         return result;
     }
 
+    private void webcallPickStateList() {
+
+        Helper_Method.showProgressBar(_act, "Loading...");
+
+        Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
+        Call<ResponseBody> result = api.POSTState("101");
+
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String output = "";
+                try {
+
+                    stateDropArrayList = new ArrayList<>();
+                    stateDropArrayList.clear();
+
+                    output = response.body().string();
+                    Log.d("my_tag", "onResponseSachin: " + output);
+                    try {
+                        JSONObject i = new JSONObject(output);
+                        String stringCode = i.getString("result");
+                        String stringMsg = i.getString(IConstant.RESPONSE_MESSAGE);
+
+
+                        if (stringCode.equalsIgnoreCase("true")) {
+                            stateDropArrayList.add(new State("0", "Select Destination State", "0"));
+                            JSONArray jsonArray = i.getJSONArray("states_list");
+                            //pickupcityObjectArrayList.add(new CountryNameObject("0", "Select Country ", "Date"));
+                            for (int index = 0; index < jsonArray.length(); index++) {
+                                try {
+                                    stateDropArrayList.add(new State(jsonArray.getJSONObject(index)));
+
+                                } catch (JSONException e) {
+
+                                    e.printStackTrace();
+                                    // scheduleDismiss();
+
+                                }
+                            }
+
+                            if (stateDropArrayList.size() == 0) {
+
+                                Helper_Method.dismissProgessBar();
+
+
+                            } else {
+
+                                // scheduleDismiss();
+
+                                spnr_stateDrop.setTitle("Select Destination State");
+                                spinnerStateDrop_Adapter = new ArrayAdapter<State>(_act, android.R.layout.simple_spinner_item, stateDropArrayList);
+                                spinnerStateDrop_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spnr_stateDrop.setAdapter(spinnerStateDrop_Adapter);
+                                spnr_stateDrop.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        // On selecting a spinner item
+                                        String item = adapterView.getItemAtPosition(i).toString();
+                                        //showToast(siteTaskCategoryObjArrayList.get(i).task);
+                                        //category = categoryList.get(i).getCategoryID();
+                                        strStateDropupId = stateDropArrayList.get(i).id;
+                                        strStateDropName = stateDropArrayList.get(i).name;
+                                        if(i != 0)
+                                            webcallPickCityList(strStateDropupId);
+
+                                    }
+
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+                                        return;
+                                    }
+                                });
+
+
+                                if (stateDropArrayList.size() == 0) {
+
+                                } else {
+                                    /*if (strActionFlag.equalsIgnoreCase(IConstant.UPDATE)) {
+                                        if (driverListObject.city != null && !driverListObject.city.isEmpty() && !driverListObject.city.equals("null")) {
+
+                                            for (int k = 0; k < pickupcityObjectArrayList.size(); k++) {
+                                                if (pickupcityObjectArrayList.get(k).getId().equals(driverListObject.city)) {
+                                                    spinnerPickupCity.setSelection(k);
+                                                }
+                                            }
+                                        } else {
+
+                                        }
+                                    }*/
+
+                                }
+
+
+                            }
+
+                        } else {
+                            stateDropArrayList.clear();
+                            spnr_stateDrop.setTitle("Select Destination State");
+                            spinnerStateDrop_Adapter = new ArrayAdapter<State>(_act, android.R.layout.simple_spinner_item, stateDropArrayList);
+                            spinnerStateDrop_Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spnr_stateDrop.setAdapter(spinnerStateDrop_Adapter);
+                            // Helper_Method.toaster(_act, stringMsg);
+                            // scheduleDismiss();
+                            //  Helper_Method.dismissProgessBar();
+
+
+                        }
+                    } catch (JSONException e) {
+                        //scheduleDismiss();
+                        Helper_Method.dismissProgessBar();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //scheduleDismiss();
+                    Helper_Method.dismissProgessBar();
+
+                } finally {
+                    Helper_Method.dismissProgessBar();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+                Log.d("Issue", getResources().getString(R.string.lbl_technical_error));
+                //scheduleDismiss();
+                Helper_Method.dismissProgessBar();
+
+            }
+        });
+    }
+
     private void initTest() {
 
         recyclerViewVehicleType = findViewById(R.id.recyclerViewVehicleType);
@@ -163,6 +303,7 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
         et_Expectedprice = findViewById(R.id.et_Expectedprice);
         et_hours = findViewById(R.id.et_hours);
         et_NoofDays = findViewById(R.id.et_NoofDays);
+        et_TotalAmount = findViewById(R.id.et_TotalAmount);
         et_remark = findViewById(R.id.et_remark);
         chk_isnegotiaable = findViewById(R.id.chk_isnegotiaable);
         rb_hourly = findViewById(R.id.rb_hourly);
@@ -172,6 +313,7 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
         button_submit = findViewById(R.id.button_submit);
         et_Requireddate = findViewById(R.id.et_Requireddate);
         et_RequiredTime = findViewById(R.id.et_RequiredTime);
+        spnr_stateDrop = findViewById(R.id.spnr_state);
 
         et_RequiredTime.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -198,7 +340,13 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
 
                 if (!vehicleType.equals("") ) {
                     if (validateFields()) {
-                        addEarthMoverRequest();
+                        if(!rb_daily.isChecked()) {
+                            addEarthMoverRequest();
+                        }else {
+                            if(MyValidator.isValidField(et_NoofDays)){
+                                addEarthMoverRequest();
+                            }
+                        }
                     } else {
                         Constants.AlertDailogue("Please update all data", AddEarthMoverRequestActivity.this);
                     }
@@ -369,6 +517,69 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
                 })
         );
 
+
+        et_hours.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Toast.makeText(_act, "a", Toast.LENGTH_SHORT).show();
+                if(!et_Expectedprice.getText().toString().isEmpty() && !et_hours.getText().toString().isEmpty() ){
+                    if(rb_hourly.isChecked()) {
+                        int totalAmount = ((Integer.parseInt(et_Expectedprice.getText().toString())) *
+                                (Integer.parseInt(et_hours.getText().toString())));
+                        et_TotalAmount.setText(""+totalAmount);
+                    }else if(!et_Expectedprice.getText().toString().isEmpty() && !et_NoofDays.getText().toString().isEmpty()){
+                        int totalAmount = ((Integer.parseInt(et_Expectedprice.getText().toString())) *
+                                (Integer.parseInt(et_hours.getText().toString())) *
+                                (Integer.parseInt(et_NoofDays.getText().toString())));
+                        et_TotalAmount.setText(""+totalAmount);
+                    }
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        et_NoofDays.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Toast.makeText(_act, "a", Toast.LENGTH_SHORT).show();
+                if(!et_Expectedprice.getText().toString().isEmpty() && !et_hours.getText().toString().isEmpty()
+                        && !et_NoofDays.getText().toString().isEmpty() ){
+                    if(rb_hourly.isChecked()) {
+                        int totalAmount = ((Integer.parseInt(et_Expectedprice.getText().toString())) *
+                                (Integer.parseInt(et_hours.getText().toString())));
+                        et_TotalAmount.setText(""+totalAmount);
+                    }else if(!et_Expectedprice.getText().toString().isEmpty() && !et_NoofDays.getText().toString().isEmpty()
+                            && !et_hours.getText().toString().isEmpty()){
+                        int totalAmount = ((Integer.parseInt(et_Expectedprice.getText().toString())) *
+                                (Integer.parseInt(et_hours.getText().toString())) *
+                                (Integer.parseInt(et_NoofDays.getText().toString())));
+                        et_TotalAmount.setText(""+totalAmount);
+                    }
+
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
         getVehicleTypeList();
 
 
@@ -466,7 +677,7 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
                             mAdapter.notifyDataSetChanged();
                             Helper_Method.dismissProgessBar();
                             Log.d("VijendraTest", "onResponse: ");
-                            webcallPickCityList("");
+                            webcallPickStateList();
 
                         }
 
@@ -502,7 +713,7 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
         Helper_Method.showProgressBar(_act, "Loading City list...");
 
         Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
-        Call<ResponseBody> result = api.POSTCity("");
+        Call<ResponseBody> result = api.POSTCity(strStateId);
 
         result.enqueue(new Callback<ResponseBody>() {
             @Override

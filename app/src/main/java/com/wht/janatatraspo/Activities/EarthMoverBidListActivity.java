@@ -86,7 +86,7 @@ public class EarthMoverBidListActivity extends BaseActivity implements View.OnCl
         toolbar_title.setText("Bid List");
         final Drawable upArrow = ContextCompat.getDrawable(this, R.drawable.ic_baseline_arrow_back_24);
         Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(upArrow);
-        upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        upArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         /*getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -151,7 +151,7 @@ public class EarthMoverBidListActivity extends BaseActivity implements View.OnCl
                             }
                             progressView.setVisibility(GONE);
 
-                            mAdapter = new BidListEarthMoverActivityAdapter(bidArrayList,flagToDispalyAcceptButton);
+                            mAdapter = new BidListEarthMoverActivityAdapter(bidArrayList,flagToDispalyAcceptButton, EarthMoverBidListActivity.this);
                             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(EarthMoverBidListActivity.this);
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setItemAnimator(new DefaultItemAnimator());

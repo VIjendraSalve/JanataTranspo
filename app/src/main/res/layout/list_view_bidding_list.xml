@@ -169,7 +169,7 @@
                     <LinearLayout
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="0.9"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
@@ -201,7 +201,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:layout_weight="0.9"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
@@ -231,7 +231,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="5dp"
-                        android:layout_weight="1.2"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <TextView
@@ -266,7 +266,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="5dp"
-                android:visibility="visible">
+
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_accept"
@@ -281,13 +282,14 @@
                     android:paddingRight="10dp"
                     android:text="Accept"
                     android:textAllCaps="true"
-                    android:textColor="@color/freshwhite"
+                    android:textColor="@color/black"
                     android:textSize="10dp"
                     android:textStyle="bold" />
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+
                     android:layout_centerVertical="true">
 
                     <TextView
@@ -302,7 +304,7 @@
                         android:visibility="invisible"
                         android:text="Negotiation"
                         android:textAllCaps="true"
-                        android:textColor="@color/freshwhite"
+                        android:textColor="@color/black"
                         android:textSize="10dp"
                         android:textStyle="bold" />
 

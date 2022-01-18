@@ -37,6 +37,8 @@ import com.wht.janatatraspo.Adapter.HomeTabAdapter;
 import com.wht.janatatraspo.Helpers.SharedPref;
 import com.wht.janatatraspo.InitialActivities.LoginActivity;
 import com.wht.janatatraspo.InitialActivities.ProfileActivity;
+//import com.wht.janatatraspo.Notification.ActivityNotification;
+import com.wht.janatatraspo.Notification.ActivityNotification;
 import com.wht.janatatraspo.my_library.CheckNetwork;
 import com.wht.janatatraspo.my_library.Shared_Preferences;
 
@@ -74,7 +76,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         toolbar_title.setText("Janata Transpo");
 
         final Drawable upArrow = getResources().getDrawable(R.drawable.ic_baseline_arrow_back_24);
-        upArrow.setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_ATOP);
+        upArrow.setColorFilter(getResources().getColor(R.color.black), PorterDuff.Mode.SRC_ATOP);
         getSupportActionBar().setHomeAsUpIndicator(upArrow);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
@@ -236,8 +238,8 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
         } else if (id == R.id.nav_notification) {
 
             Toast.makeText(this, "Comming Soon", Toast.LENGTH_SHORT).show();
-            /*Intent intent = new Intent(MainActivity.this, MainActivity.class);
-            startActivity(intent);*/
+            Intent intent = new Intent(MainActivity.this, ActivityNotification.class);
+            startActivity(intent);
 
         }else if (id == R.id.nav_rate_us) {
 
@@ -308,7 +310,7 @@ public class MainActivity extends BaseActivity implements NavigationView.OnNavig
 
     @Override
     public boolean onSupportNavigateUp() {
-        finish();
+       onBackPressed();
         return true;
     }
 

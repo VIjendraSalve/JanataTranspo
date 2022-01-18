@@ -6,10 +6,10 @@ import android.os.Parcelable;
 import org.json.JSONObject;
 
 public class Bid implements Parcelable {
-
     private String bid_id;
     private String id;
     private String user_id;
+    private String loader_type;
     private String loader_id;
     private String is_bider_type;
     private String is_negotialable;
@@ -23,6 +23,17 @@ public class Bid implements Parcelable {
     private String image;
     private String business_name;
     private String created_at;
+    private String mobile_no;
+    private String volumetric_weight;
+    private String transport_type;
+    private String material;
+    private String number_of_ton;
+    private String expected_price;
+    private String fixed_per_tone;
+    private String payment_mode;
+
+
+
 
 
 
@@ -44,6 +55,16 @@ public class Bid implements Parcelable {
             this.image = object.getString("image");
             this.business_name = object.getString("business_name");
             this.created_at = object.getString("created_at");
+            this.mobile_no = object.getString("mobile_no");
+
+            this.transport_type = object.getString("transport_type");
+            this.material = object.getString("material");
+            this.number_of_ton = object.getString("number_of_ton");
+            this.expected_price = object.getString("expected_price");
+            this.fixed_per_tone = object.getString("fixed_per_tone");
+            this.payment_mode = object.getString("payment_mode");
+            this.volumetric_weight = object.getString("volumetric_weight");
+            this.loader_type = object.getString("loader_type");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -54,6 +75,7 @@ public class Bid implements Parcelable {
         bid_id = in.readString();
         id = in.readString();
         user_id = in.readString();
+        loader_type = in.readString();
         loader_id = in.readString();
         is_bider_type = in.readString();
         is_negotialable = in.readString();
@@ -67,6 +89,14 @@ public class Bid implements Parcelable {
         image = in.readString();
         business_name = in.readString();
         created_at = in.readString();
+        mobile_no = in.readString();
+        volumetric_weight = in.readString();
+        transport_type = in.readString();
+        material = in.readString();
+        number_of_ton = in.readString();
+        expected_price = in.readString();
+        fixed_per_tone = in.readString();
+        payment_mode = in.readString();
     }
 
     @Override
@@ -74,6 +104,7 @@ public class Bid implements Parcelable {
         dest.writeString(bid_id);
         dest.writeString(id);
         dest.writeString(user_id);
+        dest.writeString(loader_type);
         dest.writeString(loader_id);
         dest.writeString(is_bider_type);
         dest.writeString(is_negotialable);
@@ -87,6 +118,14 @@ public class Bid implements Parcelable {
         dest.writeString(image);
         dest.writeString(business_name);
         dest.writeString(created_at);
+        dest.writeString(mobile_no);
+        dest.writeString(volumetric_weight);
+        dest.writeString(transport_type);
+        dest.writeString(material);
+        dest.writeString(number_of_ton);
+        dest.writeString(expected_price);
+        dest.writeString(fixed_per_tone);
+        dest.writeString(payment_mode);
     }
 
     @Override
@@ -232,5 +271,77 @@ public class Bid implements Parcelable {
 
     public void setCreated_at(String created_at) {
         this.created_at = created_at;
+    }
+
+    public String getMobile_no() {
+        return mobile_no;
+    }
+
+    public void setMobile_no(String mobile_no) {
+        this.mobile_no = mobile_no;
+    }
+
+    public String getTransport_type() {
+        return transport_type;
+    }
+
+    public void setTransport_type(String transport_type) {
+        this.transport_type = transport_type;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+
+    public void setMaterial(String material) {
+        this.material = material;
+    }
+
+    public String getNumber_of_ton() {
+        return number_of_ton;
+    }
+
+    public void setNumber_of_ton(String number_of_ton) {
+        this.number_of_ton = number_of_ton;
+    }
+
+    public String getExpected_price() {
+        return expected_price;
+    }
+
+    public void setExpected_price(String expected_price) {
+        this.expected_price = expected_price;
+    }
+
+    public String getFixed_per_tone() {
+        return fixed_per_tone;
+    }
+
+    public void setFixed_per_tone(String fixed_per_tone) {
+        this.fixed_per_tone = fixed_per_tone;
+    }
+
+    public String getPayment_mode() {
+        return payment_mode;
+    }
+
+    public void setPayment_mode(String payment_mode) {
+        this.payment_mode = payment_mode;
+    }
+
+    public String getVolumetric_weight() {
+        return volumetric_weight;
+    }
+
+    public void setVolumetric_weight(String volumetric_weight) {
+        this.volumetric_weight = volumetric_weight;
+    }
+
+    public String getLoader_type() {
+        return loader_type;
+    }
+
+    public void setLoader_type(String loader_type) {
+        this.loader_type = loader_type;
     }
 }
