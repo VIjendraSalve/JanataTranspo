@@ -131,7 +131,7 @@ public class MyAndroidFirebaseMsgService extends FirebaseMessagingService {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         db.insert_notification(title, message, image, link);
         int requestCode = ("someString" + System.currentTimeMillis()).hashCode();
-        PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(this, requestCode, intent, PendingIntent.FLAG_NO_CREATE);
 
         Uri soundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
         Uri alarmSound = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE

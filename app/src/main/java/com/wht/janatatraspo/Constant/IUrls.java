@@ -70,6 +70,9 @@ public class IUrls {
     public static final String URL_UPDATE_PROFILE_IMAGE = "update_profile_pic";
     public static final String URL_STATE_LIST = "state_list";
     public static final String URL_CITY_LIST = "city_list";
+    public static final String URL_TALUKA_LIST = "taluka_list";
+    public static final String URL_MATERIAL_LIST = "app_common_category_list";
+    public static final String URL_VARIENT_LIST = "app_common_category_variant_list";
     public static final String URL_LOAD_LIST = "app_cust_loader_list";
     public static final String URL_EARTHMOVER_LIST = "app_cust_earth_mover_list";
     public static final String URL_BID_LIST = "app_cust_bid_list";

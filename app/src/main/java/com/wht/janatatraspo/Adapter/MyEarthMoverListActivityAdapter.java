@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.wht.janatatraspo.Activities.BidListActivity;
 import com.wht.janatatraspo.Activities.EarthMoverBidListActivity;
+import com.wht.janatatraspo.Activities.EarthMoverDetailsActivity;
 import com.wht.janatatraspo.Activities.LoadDetailsActivity;
 import com.wht.janatatraspo.Constant.IConstant;
 import com.wht.janatatraspo.Helpers.Helper_Method;
@@ -28,7 +29,7 @@ import java.util.ArrayList;
 
 public class MyEarthMoverListActivityAdapter extends RecyclerView.Adapter<MyEarthMoverListActivityAdapter.SponsorsHolder> {
 
-    private ArrayList<EarthMover> loadArrayList;
+    private ArrayList<EarthMover> earthMoverArrayList;
     private View itemView;
     private Context context;
     private ProgressDialog progressDialog;
@@ -36,8 +37,8 @@ public class MyEarthMoverListActivityAdapter extends RecyclerView.Adapter<MyEart
     private String flagtoDisplay = "";
     private ArrayList<String> criminalList = new ArrayList<>();
 
-    public MyEarthMoverListActivityAdapter(ArrayList<EarthMover> loadArrayList, String path) {
-        this.loadArrayList = loadArrayList;
+    public MyEarthMoverListActivityAdapter(ArrayList<EarthMover> earthMoverArrayList, String path) {
+        this.earthMoverArrayList = earthMoverArrayList;
         this.flagtoDisplay = path;
     }
 
@@ -51,7 +52,7 @@ public class MyEarthMoverListActivityAdapter extends RecyclerView.Adapter<MyEart
 
     @Override
     public void onBindViewHolder(MyEarthMoverListActivityAdapter.SponsorsHolder holder, final int position) {
-        final EarthMover earthMover = loadArrayList.get(position);
+        final EarthMover earthMover = earthMoverArrayList.get(position);
 
         holder.tvWeight.setTypeface(holder.tvWeight.getTypeface(), Typeface.BOLD);
         holder.tvTitle.setTypeface(holder.tvTitle.getTypeface(), Typeface.BOLD);
@@ -87,21 +88,21 @@ public class MyEarthMoverListActivityAdapter extends RecyclerView.Adapter<MyEart
             holder.tvVerified.setText("Accepted");
         }
 
-       /* holder.itemView.setOnClickListener(new View.OnClickListener() {
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, LoadDetailsActivity.class);
-                intent.putParcelableArrayListExtra("EarthMoverListDisplay", loadArrayList);
-                intent.putExtra("PositionOfEarthMover", position);
+                Intent intent = new Intent(context, EarthMoverDetailsActivity.class);
+                intent.putParcelableArrayListExtra(IConstant.EarthMoverList, earthMoverArrayList);
+                intent.putExtra(IConstant.PositionEarthMover, position);
                 context.startActivity(intent);
             }
-        });*/
+        });
 
         holder.bid1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, EarthMoverBidListActivity.class);
-                intent.putExtra("EarthMoverID", loadArrayList.get(position).getId());
+                intent.putExtra("EarthMoverID", earthMoverArrayList.get(position).getId());
                 intent.putExtra("FlagToDisplayAcceptButton", earthMover.getIs_bid_accept()); // 1: bid accepted, 0: bid is active
                 context.startActivity(intent);
             }
@@ -111,7 +112,7 @@ public class MyEarthMoverListActivityAdapter extends RecyclerView.Adapter<MyEart
 
     @Override
     public int getItemCount() {
-        return loadArrayList.size();
+        return earthMoverArrayList.size();
     }
 
     public class SponsorsHolder extends RecyclerView.ViewHolder {

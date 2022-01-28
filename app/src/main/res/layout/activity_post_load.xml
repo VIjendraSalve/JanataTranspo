@@ -53,14 +53,14 @@
                     android:layout_height="wrap_content"
                     android:checked="true"
                     android:text="Full Load"
-                    android:textSize="@dimen/fifteen" />
+                    android:textSize="@dimen/eighteen" />
 
                 <RadioButton
                     android:id="@+id/rb_partload"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Part Load"
-                    android:textSize="@dimen/fifteen" />
+                    android:textSize="@dimen/eighteen" />
 
             </RadioGroup>
 
@@ -127,6 +127,66 @@
                             android:contentDescription="@null"
                             android:src="@drawable/ic_baseline_arrow_drop_down_24" />
                     </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten">
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerPickupTaluka"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/edittext_background"
+                            android:gravity="center_vertical" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:layout_marginBottom="5dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                    </FrameLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlVillage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_PickupVillage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:gravity="left|top"
+                            android:inputType="text|textNoSuggestions|textMultiLine"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="City/Village "
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rllatlong"
@@ -210,6 +270,66 @@
                             android:src="@drawable/ic_baseline_arrow_drop_down_24" />
                     </FrameLayout>
 
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten">
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerDestinationTaluka"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/edittext_background"
+                            android:gravity="center_vertical" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:layout_marginBottom="5dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                    </FrameLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlDestinationVillage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_DestinationVillage"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:gravity="left|top"
+                            android:inputType="text|textNoSuggestions|textMultiLine"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="City/Village "
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+
+                    </RelativeLayout>
+
                     <RelativeLayout
                         android:id="@+id/rlDestinationlatlong"
                         android:layout_width="match_parent"
@@ -275,6 +395,110 @@
                     android:layout_margin="@dimen/five"
                     android:orientation="vertical"
                     android:padding="@dimen/five">
+
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten">
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerMainMaterial"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/edittext_background"
+                            android:gravity="center_vertical" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:layout_marginBottom="5dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten">
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerSubMaterial"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/edittext_background"
+                            android:gravity="center_vertical" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:layout_marginBottom="5dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                    </FrameLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/ten">
+
+                        <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                            android:id="@+id/spinnerVarient"
+                            android:layout_width="match_parent"
+                            android:layout_height="45dp"
+                            android:background="@drawable/edittext_background"
+                            android:gravity="center_vertical" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="end|center"
+                            android:layout_marginBottom="5dp"
+                            android:contentDescription="@null"
+                            android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+                    </FrameLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/rlCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
+
+                        <EditText
+                            android:id="@+id/et_countof_variable"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:layout_marginTop="15dp"
+                            android:background="@drawable/border_layout"
+                            android:gravity="left|top"
+                            android:inputType="text|textNoSuggestions|textMultiLine"
+                            android:paddingLeft="15dp"
+                            android:paddingTop="20dp"
+                            android:paddingRight="15dp"
+                            android:paddingBottom="15dp"
+                            android:singleLine="true"
+                            android:text=""
+                            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                            android:textColor="@color/black"
+                            android:textColorHint="@color/text_view"
+                            android:textStyle="normal" />
+
+                        <TextView
+                            android:id="@+id/tv_variable_count"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="15dp"
+                            android:background="#ffffff"
+                            android:text="Enter Count "
+                            android:textColor="@color/black"
+                            android:textSize="12dp" />
+
+                    </RelativeLayout>
 
                     <RelativeLayout
                         android:id="@+id/rlMaterial"
@@ -358,12 +582,14 @@
                         android:layout_marginTop="@dimen/ten"
                         android:text="Vehicle Required : "
                         android:textColor="@color/black"
+                        android:visibility="gone"
                         android:textSize="@dimen/fifteen" />
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/recyclerViewVehicleType"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_margin="@dimen/ten" />
 
                 </LinearLayout>
@@ -599,6 +825,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/ten"
+                        android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
 
                         <EditText
@@ -688,6 +915,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
+                        android:visibility="gone"
                         app:layout_constraintTop_toBottomOf="@+id/rlCheckBox">
 
                         <EditText
@@ -796,7 +1024,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/ten"
                         android:text="Is Negotiable ?"
-                        android:visibility="visible" />
+                        android:visibility="gone" />
 
                     <CheckBox
                         android:id="@+id/chk_islablour_required"
@@ -804,6 +1032,51 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/ten"
                         android:text="Labour required ?" />
+
+                    <RadioGroup
+                        android:id="@+id/rg_labourtype"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Labour Type : "
+                            />
+
+
+                        <RadioButton
+                            android:id="@+id/rb_pertonLabour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:checked="true"
+                            android:text="Per Ton"
+                            android:textSize="@dimen/eighteen" />
+
+                        <RadioButton
+                            android:id="@+id/rb_perLabour"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Per Labour"
+                            android:textSize="@dimen/eighteen" />
+
+                        <RadioButton
+                            android:id="@+id/rb_perBox"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Per Box"
+                            android:textSize="@dimen/eighteen" />
+
+                        <RadioButton
+                            android:id="@+id/rb_perCreate"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Per Create"
+                            android:textSize="@dimen/eighteen" />
+
+                    </RadioGroup>
 
                     <RelativeLayout
                         android:id="@+id/rlLabour"

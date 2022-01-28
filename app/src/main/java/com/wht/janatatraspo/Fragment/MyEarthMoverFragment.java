@@ -216,7 +216,7 @@ public class MyEarthMoverFragment extends Fragment implements View.OnClickListen
     private void getEarthMover() {
 
         Log.d("MyToken", "getEarthMover: "+Shared_Preferences.getPrefs(getContext(), IConstant.USER_API_TOKEN));
-        Helper_Method.showProgressBar(getContext(), "Loading...");
+        //Helper_Method.showProgressBar(getContext(), "Loading...");
         Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
         Call<ResponseBody> result = api.POSTEarthMoverList(
                 Shared_Preferences.getPrefs(getContext(), IConstant.USER_ID),

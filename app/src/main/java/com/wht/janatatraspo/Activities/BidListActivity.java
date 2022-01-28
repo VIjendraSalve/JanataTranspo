@@ -163,6 +163,7 @@ public class BidListActivity extends BaseActivity implements View.OnClickListene
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setItemAnimator(new DefaultItemAnimator());
                             recyclerView.setAdapter(mAdapter);
+                            recyclerView.getRecycledViewPool().clear();
                             mAdapter.notifyDataSetChanged();
 
                             if(bidArrayList.size() > 0){
@@ -316,6 +317,7 @@ public class BidListActivity extends BaseActivity implements View.OnClickListene
             default:
                 return super.onOptionsItemSelected(item);
         }
+
     }
 
     @Override

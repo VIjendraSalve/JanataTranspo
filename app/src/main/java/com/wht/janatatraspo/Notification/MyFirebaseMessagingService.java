@@ -143,13 +143,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
                 .setContentText(message)
                 .setLargeIcon(icon)
                 .setSmallIcon(R.drawable.app_logo)
-                .setSound(alarmSound)
+                .setSound(soundUri)
                 .setChannelId("vijendra")
                 .setContentIntent(pendingIntent)
                 .setStyle(new NotificationCompat.BigTextStyle().bigText(message));
 
         MediaPlayer mp = MediaPlayer.create(MyFirebaseMessagingService.this, R.raw.samsung_s);
         mp.start();
+
         if (jsonObject.has("image")) {
             if (image != null && !image.isEmpty() && !image.equals("null")) {
                 Bitmap image = getBitmapFromURL(this.image);
@@ -178,8 +179,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             Log.d("abcd", "IFshowNotification: ");
         } else {
-          /*  MediaPlayer mp= MediaPlayer.create(MyAndroidFirebaseMsgService.this, R.raw.sms_popcorn);
-            mp.start();*/
+            MediaPlayer mp1= MediaPlayer.create(MyFirebaseMessagingService.this, R.raw.samsung_s);
+            mp1.start();
         }
 
 

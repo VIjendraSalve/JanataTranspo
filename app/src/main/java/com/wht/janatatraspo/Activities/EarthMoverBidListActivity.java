@@ -156,6 +156,7 @@ public class EarthMoverBidListActivity extends BaseActivity implements View.OnCl
                             recyclerView.setLayoutManager(mLayoutManager);
                             recyclerView.setItemAnimator(new DefaultItemAnimator());
                             recyclerView.setAdapter(mAdapter);
+                            recyclerView.getRecycledViewPool().clear();
                             mAdapter.notifyDataSetChanged();
 
                             if(bidArrayList.size() > 0){

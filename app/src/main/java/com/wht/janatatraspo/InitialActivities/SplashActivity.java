@@ -17,10 +17,15 @@ import com.wht.janatatraspo.Activities.BaseActivity;
 import com.wht.janatatraspo.Constant.IConstant;
 import com.wht.janatatraspo.Helpers.ConnectionDetector;
 import com.wht.janatatraspo.MainActivity;
+import com.wht.janatatraspo.Notification.DatabaseSqliteHandler;
+import com.wht.janatatraspo.Notification.Notification;
 import com.wht.janatatraspo.R;
 import com.wht.janatatraspo.my_library.Shared_Preferences;
 
+import org.json.JSONObject;
+
 import java.io.File;
+import java.util.ArrayList;
 
 public class SplashActivity extends BaseActivity {
 
@@ -34,6 +39,13 @@ public class SplashActivity extends BaseActivity {
     private TextView tvVersion;
     private ProgressBar prog;
     private ConnectionDetector connectionDetector;
+
+    private DatabaseSqliteHandler db;
+    private ArrayList<String> stringArrayListKeys = new ArrayList<>();
+    private ArrayList<String> stringArrayListValues = new ArrayList<>();
+    private ArrayList<Notification> notificationInsertObjectArrayList = new ArrayList<>();
+
+    private String image = null, title = null, message1 = null;
 
     public static void deleteCache(Context context) {
         try {
@@ -69,6 +81,59 @@ public class SplashActivity extends BaseActivity {
         connectionDetector = ConnectionDetector.getInstance(this);
         prog = findViewById(R.id.prog);
         ivImage = findViewById(R.id.ivImage);
+
+        /*try {
+            InAppUpdateManager updateManager = new InAppUpdateManager(this,
+                    AppUpdateConstant.APP_UPDATE_TYPE_IMMEDIATE);
+            updateManager.checkAppUpdate(AppUpdateConstant.APP_UPDATE_TYPE_IMMEDIATE);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }*/
+
+
+        if (getIntent().getExtras() != null) {
+            JSONObject obj = null;
+            for (String key : getIntent().getExtras().keySet()) {
+                Object value = getIntent().getExtras().get(key);
+                Log.d("Splash: ", "Key: " + key + " Value: " + value);
+                Log.d("Splash: ", "Values :" + getIntent().getExtras().get(key));
+
+                if (key.equalsIgnoreCase("title")) {
+
+                    title = (String) value;
+                }
+                if (key.equalsIgnoreCase("image")) {
+
+                    image = (String) value;
+
+                }
+                if (key.equalsIgnoreCase("body")) {
+
+                    message1 = (String) value;
+
+                } else {
+
+                }
+
+                stringArrayListKeys.add(key);
+                stringArrayListValues.add(key);
+            }
+            Log.d("Data", "Key: Size" + stringArrayListKeys.size());
+            Log.d("Data", "Values: Size" + stringArrayListValues.size());
+
+            db = DatabaseSqliteHandler.getInstance(this);
+            Log.d("Splash", "onCreate: " + title);
+            if (title != null && !title.isEmpty() && !title.equals("null") && !title.equals("")) {
+                if (image != null && !image.isEmpty() && !image.equals("null") && !image.equals("")) {
+                    db.insert_notification(title, message1, image, "");
+
+                } else {
+                    db.insert_notification(title, message1, null,"");
+                }
+            } else {
+            }
+
+        }
 
         final Thread timer = new Thread() {
             public void run() {

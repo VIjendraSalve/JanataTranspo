@@ -37,6 +37,7 @@ public class Load implements Parcelable {
     private String created_at;
     private String no_of_bid;
     private String is_accept;
+    private String ride_status;
 
     public Load(JSONObject object) {
         try {
@@ -70,6 +71,7 @@ public class Load implements Parcelable {
             this.created_at = object.getString("created_at");
             this.no_of_bid = object.getString("no_of_bid");
             this.is_accept = object.getString("is_bid_accept");
+            this.ride_status = object.getString("ride_status");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -107,6 +109,7 @@ public class Load implements Parcelable {
         created_at = in.readString();
         no_of_bid = in.readString();
         is_accept = in.readString();
+        ride_status = in.readString();
     }
 
     public static final Creator<Load> CREATOR = new Creator<Load>() {
@@ -158,6 +161,7 @@ public class Load implements Parcelable {
         parcel.writeString(created_at);
         parcel.writeString(no_of_bid);
         parcel.writeString(is_accept);
+        parcel.writeString(ride_status);
     }
 
     public String getId() {
@@ -398,5 +402,13 @@ public class Load implements Parcelable {
 
     public void setIs_accept(String is_accept) {
         this.is_accept = is_accept;
+    }
+
+    public String getRide_status() {
+        return ride_status;
+    }
+
+    public void setRide_status(String ride_status) {
+        this.ride_status = ride_status;
     }
 }

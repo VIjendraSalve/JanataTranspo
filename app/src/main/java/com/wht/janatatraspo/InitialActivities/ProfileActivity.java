@@ -854,6 +854,12 @@ public class ProfileActivity extends BaseActivity {
                             //intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                             // startActivity(intent);
                             //finish();
+
+                            Glide.with(_act)
+                                    .load(Shared_Preferences.getPrefs(_act, IConstant.USER_PHOTO))
+                                    .apply(new RequestOptions().placeholder(R.drawable.default_user).error(R.drawable.default_user))
+                                    .into(ivProfilePic);
+
                             updateProfile();
 
 
@@ -1018,7 +1024,6 @@ public class ProfileActivity extends BaseActivity {
             /*rlEditGSTView.setVisibility(View.GONE);
             tvCompanyName.setVisibility(View.GONE);*/
         }
-
 
 
         //User Name

@@ -320,12 +320,32 @@ public interface Interface {
 
     @FormUrlEncoded
     @POST(IUrls.URL_STATE_LIST)
-    Call<ResponseBody> POSTState(@Field("country_id") String state_id);
+    Call<ResponseBody> POSTState(@Field("country_id") String country_id);
 
 
     @FormUrlEncoded
     @POST(IUrls.URL_CITY_LIST)
     Call<ResponseBody> POSTCity(@Field("state_id") String state_id);
+
+    @FormUrlEncoded
+    @POST(IUrls.URL_TALUKA_LIST)
+    Call<ResponseBody> POSTTaluka(@Field("city_id") String city_id);
+
+    @FormUrlEncoded
+    @POST(IUrls.URL_VARIENT_LIST)
+    Call<ResponseBody> POSTVarient(
+            @Field("user_id") String user_id,
+            @Field("api_token") String api_token,
+            @Field("category_id") String category_id
+    );
+
+    @FormUrlEncoded
+    @POST(IUrls.URL_MATERIAL_LIST)
+    Call<ResponseBody> POSTMaterial(
+            @Field("user_id") String user_id,
+            @Field("api_token") String api_token,
+            @Field("parent_id") String parent_id
+    );
 
     @FormUrlEncoded
     @POST(IUrls.URL_LOAD_LIST)
@@ -369,11 +389,32 @@ public interface Interface {
             @Part("pickup_lat") RequestBody pickup_lat,
             @Part("pickup_lng") RequestBody pickup_lng,
             @Part("pickup_loaction") RequestBody pickup_loaction,
+
+            @Part("pickup_taluka") RequestBody pickup_taluka,
+            @Part("pickup_village") RequestBody pickup_village,
+            @Part("pickup_detail_address") RequestBody pickup_detail_address,
+
+
             @Part("drop_loaction") RequestBody drop_loaction,
             @Part("drop_lat") RequestBody drop_lat,
             @Part("drop_lng") RequestBody drop_lng,
+
+            @Part("drop_taluka") RequestBody drop_taluka,
+            @Part("drop_detail_address") RequestBody drop_detail_address,
+            @Part("drop_village") RequestBody drop_village,
+
+
+
             @Part("transport_type") RequestBody transport_type,
             @Part("material") RequestBody material,
+
+            @Part("category") RequestBody category,
+            @Part("sub_category") RequestBody sub_category,
+            @Part("variant_id") RequestBody variant_id,
+            @Part("labour_type") RequestBody labour_type,
+            @Part("no_of_count_variant") RequestBody no_of_count_variant,
+
+
             @Part("number_of_ton") RequestBody number_of_ton,
             @Part("expected_price") RequestBody expected_price,
             @Part("fixed_per_tone") RequestBody fixed_per_tone,

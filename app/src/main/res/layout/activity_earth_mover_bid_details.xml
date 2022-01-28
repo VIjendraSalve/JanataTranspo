@@ -12,7 +12,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-       android:layout_below="@id/actionbar"
+        android:layout_below="@+id/appBarLayout"
         android:background="@drawable/circularbordersolid"
         android:visibility="visible">
 
@@ -52,7 +52,26 @@
                             android:paddingTop="5dp"
                             android:paddingRight="20dp"
                             android:paddingBottom="5dp"
-                            android:text="On GOing"
+                            android:text="On Going"
+                            android:textAllCaps="true"
+                            android:textColor="@color/white"
+                            android:textStyle="bold"
+                            android:visibility="gone" />
+
+                        <TextView
+                            android:id="@+id/tvAccepted"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/on_going_bid_border"
+                            android:drawableRight="@drawable/ic_fingure_raised_12"
+                            android:drawablePadding="10dp"
+                            android:drawableTint="@color/white"
+                            android:gravity="center_vertical"
+                            android:paddingLeft="5dp"
+                            android:paddingTop="5dp"
+                            android:paddingRight="20dp"
+                            android:paddingBottom="5dp"
+                            android:text="Accepted"
                             android:textAllCaps="true"
                             android:textColor="@color/white"
                             android:textStyle="bold"
@@ -75,7 +94,7 @@
                             android:textAllCaps="true"
                             android:textColor="@color/white"
                             android:textStyle="bold"
-                            android:visibility="visible" />
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/tvVerified"
@@ -144,9 +163,9 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="15dp"
                             android:layout_toRightOf="@+id/ivPostImg2"
-                            android:text="WorkType"
+                            android:text="Earth Mover"
                             android:textColor="@color/red"
-                            android:textSize="25dp"
+                            android:textSize="10dp"
                             android:textStyle="bold" />
 
                         <TextView
@@ -159,7 +178,6 @@
                             android:paddingTop="2dp"
                             android:paddingBottom="2dp"
                             android:text="Route"
-                            android:visibility="gone"
                             android:textAllCaps="true"
                             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
                             android:textColor="@color/black"
@@ -214,6 +232,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_below="@+id/tvEstimatePrice"
+                                android:layout_centerHorizontal="true"
                                 android:layout_marginStart="5dp"
                                 android:layout_marginTop="5dp"
                                 android:layout_marginEnd="5dp"
@@ -226,7 +245,16 @@
                                 android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                 android:textColor="@color/black" />
 
-
+                            <TextView
+                                android:id="@+id/tvNegotiable"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tvExpectedPrice"
+                                android:layout_centerHorizontal="true"
+                                android:text="Negotiable"
+                                android:textColor="@color/black"
+                                android:textSize="12dp"
+                                android:textStyle="bold" />
                         </RelativeLayout>
 
                         <RelativeLayout
@@ -236,20 +264,19 @@
                             android:layout_toLeftOf="@+id/rlPriceView">
 
 
-                            <TextView
+                       <!--     <TextView
                                 android:id="@+id/tvEstimateWeight"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:drawableLeft="@drawable/ic_samll_dot_4dp"
                                 android:drawablePadding="10dp"
                                 android:text="weight"
-                                android:textColor="@color/gray_variant" />
+                                android:textColor="@color/gray_variant" />-->
 
                             <TextView
                                 android:id="@+id/tvVehicleType"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_below="@+id/tvEstimateWeight"
                                 android:layout_marginTop="10dp"
                                 android:drawableLeft="@drawable/ic_samll_dot_4dp"
                                 android:drawablePadding="10dp"
@@ -289,133 +316,25 @@
                             android:padding="10dp"
                             android:text="Working on 00 000 0000"
                             android:textAllCaps="true"
-                            android:visibility="gone"
                             android:textAppearance="@style/TextAppearance.AppCompat.Small"
                             android:textColor="@color/green"
                             android:textStyle="bold" />
                     </RelativeLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+
+                    <TextView
+                        android:id="@+id/tvMyBidAmount"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="10dp">
+                        android:layout_marginTop="15dp"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="10dp"
+                        android:text="Final Bid Amount : 0000"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
 
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:orientation="horizontal">
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_weight="0.9"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center_vertical"
-                                    android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:text="Allownces"
-                                    android:textColor="@color/black"
-                                    android:textSize="10sp" />
-
-                                <TextView
-                                    android:id="@+id/tv_allownces"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:background="@drawable/border_layout"
-                                    android:gravity="center"
-                                    android:padding="10dp"
-                                    android:text="₹ 000"
-                                    android:textColor="@color/black"
-                                    android:textSize="12sp" />
-
-                            </LinearLayout>
-
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:layout_weight="0.9"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:text="Waiting Charges"
-                                    android:textColor="@color/black"
-                                    android:textSize="10sp" />
-
-                                <TextView
-                                    android:id="@+id/tv_waitingcharge"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:background="@drawable/border_layout"
-                                    android:gravity="center"
-                                    android:padding="10dp"
-                                    android:text="₹ 000"
-                                    android:textColor="@color/black"
-                                    android:textSize="13sp" />
-
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="5dp"
-                                android:layout_weight="1.2"
-                                android:orientation="vertical">
-
-                                <TextView
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:gravity="center"
-                                    android:text="Labour/ Person"
-                                    android:textColor="@color/black"
-                                    android:textSize="10sp" />
-
-                                <TextView
-                                    android:id="@+id/tv_labourcharge"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="5dp"
-                                    android:background="@drawable/border_layout"
-                                    android:gravity="center"
-                                    android:padding="10dp"
-                                    android:text="₹ 000"
-                                    android:textColor="@color/black"
-                                    android:textSize="13sp" />
-
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:id="@+id/tvMyBidAmount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:layout_weight="1"
-                            android:gravity="center"
-                            android:padding="10dp"
-                            android:text="Final Bid Amount : 0000"
-                            android:textAppearance="@style/TextAppearance.AppCompat.Large"
-                            android:textColor="@color/black"
-                            android:textStyle="bold" />
-
-
-                    </LinearLayout>
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -432,7 +351,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
                             android:gravity="center_horizontal"
-                            android:text="Owner / Driver"
+                            android:text="@string/title_customer_details"
                             android:textAppearance="@style/TextAppearance.AppCompat.Large"
                             android:textColor="@color/black"
                             android:textStyle="bold" />
@@ -454,7 +373,6 @@
                                 android:padding="5dp"
                                 android:src="@android:drawable/sym_call_outgoing"
                                 android:text=""
-                                android:visibility="gone"
                                 android:textColor="@color/black"
                                 android:textStyle="bold" />
 
@@ -498,7 +416,6 @@
                                 android:layout_toRightOf="@+id/ivDriverProfile"
                                 android:singleLine="true"
                                 android:text="Customer"
-                                android:visibility="gone"
                                 android:textColor="@color/black"
                                 android:textSize="12dp" />
 
@@ -529,199 +446,154 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginLeft="@dimen/ten"
-                                android:layout_marginRight="@dimen/ten"
+                                android:layout_marginLeft="5dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginRight="5dp"
                                 android:orientation="vertical"
-                                android:padding="@dimen/five">
+                                android:padding="5dp">
+
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:weightSum="2.2">
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:text="Load Type"
-                                        android:textColor="@color/gray"
-                                        />
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.2"
-                                        android:text=":"
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/sixteen" />
-
-                                    <TextView
-                                        android:id="@+id/tv_load_type_isfix_or_perton"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:gravity="end"
-                                        android:text="Per Ton"
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/sixteen" />
-
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:id="@+id/ll_ton"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/ten"
-                                    android:orientation="horizontal"
-                                    android:weightSum="2.2">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="Total Ton"
-                                        android:textColor="@color/gray"
-                                        />
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.2"
-                                        android:text=":"
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/sixteen" />
-
-                                    <TextView
-                                        android:id="@+id/tv_no_of_ton"
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:gravity="end"
-                                        android:text="5"
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/sixteen" />
-
-
-                                </LinearLayout>
-
-                                <LinearLayout
-                                    android:id="@+id/ll_pricePerTon"
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/ten"
-                                    android:orientation="horizontal"
-                                    android:weightSum="2.2">
-
-                                    <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="1"
-                                        android:text="Price Per Ton"
+                                        android:text="Total Bid Amount :"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                                         android:textColor="@color/gray" />
 
                                     <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.2"
-                                        android:text=":"
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/sixteen" />
-
-                                    <TextView
-                                        android:id="@+id/tv_per_ton_price"
-                                        android:layout_width="0dp"
+                                        android:id="@+id/tvTotalBidAmount"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:gravity="end"
-                                        android:text="1000"
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/sixteen" />
-
-
+                                        android:gravity="right"
+                                        android:text="0"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
+
                                 <LinearLayout
-                                    android:id="@+id/ll_final_price"
+                                    android:id="@+id/llSaving"
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/ten"
-                                    android:orientation="horizontal"
-                                    android:weightSum="2.2">
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:layout_width="0dp"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:text="Final Price"
-                                        android:textColor="@color/gray"
-                                        />
+                                        android:text="Total Pay Amount :"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                        android:textColor="@color/gray" />
 
                                     <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.2"
-                                        android:text=":"
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/sixteen" />
-
-                                    <TextView
-                                        android:id="@+id/tv_final_price"
-                                        android:layout_width="0dp"
+                                        android:id="@+id/tvTotalAmountPay"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:gravity="end"
-                                        android:text="5000"
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/sixteen" />
-
-
+                                        android:gravity="right"
+                                        android:text="0"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
 
                                 <LinearLayout
                                     android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
-                                    android:orientation="horizontal"
-                                    android:layout_marginTop="@dimen/ten"
-                                    android:layout_marginBottom="@dimen/ten"
-                                    android:weightSum="2.2">
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal">
 
                                     <TextView
-                                        android:id="@+id/tv_text_amount_commision"
-                                        android:layout_width="0dp"
+                                        android:id="@+id/tvDeliveryChargesTitle"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:text="Total Amount to Pay \n (5% of Total Amount)"
-                                        android:textColor="@color/gray"
-                                        />
+                                        android:text="Remaining Amount :"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                        android:textColor="@color/gray" />
 
                                     <TextView
-                                        android:layout_width="0dp"
-                                        android:layout_height="wrap_content"
-                                        android:layout_weight="0.2"
-                                        android:text=":"
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/sixteen" />
-
-                                    <TextView
-                                        android:id="@+id/tv_commision_amount"
-                                        android:layout_width="0dp"
+                                        android:id="@+id/tvRemaingAmount"
+                                        android:layout_width="match_parent"
                                         android:layout_height="wrap_content"
                                         android:layout_weight="1"
-                                        android:gravity="end"
-                                        android:text="250"
-                                        android:textColor="@color/black"
-                                        android:textSize="@dimen/sixteen" />
-
-
+                                        android:gravity="right"
+                                        android:text="0"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                        android:textColor="@color/black" />
                                 </LinearLayout>
+
+                                <LinearLayout
+                                    android:id="@+id/llOfferAmt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:text="Company Charges :"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                        android:textColor="@color/gray" />
+
+                                    <TextView
+                                        android:id="@+id/tvCompanyFees"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:layout_weight="1"
+                                        android:gravity="right"
+                                        android:text="0"
+                                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
+                                        android:textColor="@color/colorPrimary" />
+                                </LinearLayout>
+
 
                             </LinearLayout>
 
 
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1dp"
+                                android:layout_marginTop="5dp"
+                                android:layout_marginBottom="5dp"
+                                android:background="@color/gray" />
 
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:padding="8dp">
 
+                                <TextView
+                                    android:id="@+id/tvPayableTitle"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:text="Total Received"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                                    android:textColor="@color/black"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:id="@+id/tvPayableAmt"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="right"
+                                    android:text="0"
+                                    android:textColor="@color/green"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
 
 
                             <View
@@ -749,62 +621,50 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:orientation="vertical"
-                    android:padding="20dp">
+                    android:orientation="horizontal"
+                    android:padding="5dp">
 
                     <TextView
-                            android:id="@+id/tvStatusTitle"
+                        android:id="@+id/tvStatusTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="10dp"
                         android:gravity="center_horizontal"
                         android:text="@string/title_ride_status"
                         android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Large"
+                        android:textColor="@color/white"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvRideCancel"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/booking_button"
+                        android:gravity="center"
+                        android:paddingLeft="15dp"
+                        android:paddingTop="5dp"
+                        android:paddingRight="15dp"
+                        android:paddingBottom="5dp"
+                        android:text="Cancel Ride"
+                        android:textAlignment="center"
+                        android:textAllCaps="true"
+                        android:textAppearance="@style/TextAppearance.AppCompat.Small"
                         android:textColor="@color/white"
                         android:textStyle="bold" />
 
                 </LinearLayout>
 
-                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                    android:id="@+id/efaPayAdavance"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    android:textSize="15dp"
-                    android:backgroundTint="@color/white"
-                    android:text="@string/pay_advance"
-                    android:textColor="@android:color/black"
-                    android:theme="@style/MyMaterialTheme"
-                    android:visibility="visible"
-                    app:icon="@drawable/right"
-                    app:iconTint="@android:color/black"
-                    app:rippleColor="@color/white"
-                    app:strokeColor="@color/white" />
 
-                <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                    android:id="@+id/efaEndRide"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="20dp"
-                    android:backgroundTint="@color/white"
-                    android:text="Ride End"
-                    android:textColor="@android:color/black"
-                    android:theme="@style/MyMaterialTheme"
-                    android:visibility="gone"
-                    app:icon="@drawable/right"
-                    app:iconTint="@android:color/black"
-                    app:rippleColor="@color/white"
-                    app:strokeColor="@color/white" />
+
 
             </RelativeLayout>
         </LinearLayout>
 
 
     </ScrollView>
-
 
 </RelativeLayout>

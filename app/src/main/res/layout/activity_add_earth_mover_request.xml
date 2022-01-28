@@ -33,6 +33,27 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/ten" />
 
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/ten">
+
+                <com.toptoche.searchablespinnerlibrary.SearchableSpinner
+                    android:id="@+id/spnr_vehicle"
+                    android:layout_width="match_parent"
+                    android:layout_height="45dp"
+                    android:background="@drawable/edittext_background"
+                    android:gravity="center_vertical" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center"
+                    android:layout_marginBottom="5dp"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_baseline_arrow_drop_down_24" />
+            </FrameLayout>
+
             <TextView
                 android:id="@+id/tv_location"
                 android:layout_width="wrap_content"
@@ -508,6 +529,96 @@
                 </LinearLayout>
 
             </androidx.cardview.widget.CardView>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="@dimen/ten">
+
+                <androidx.appcompat.widget.AppCompatImageView
+                    android:layout_width="@dimen/twentyfive"
+                    android:layout_height="@dimen/twentyfive"
+                    android:src="@drawable/ic_card"
+                    android:tint="@color/colorPrimary" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:paddingLeft="@dimen/eight">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Images"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/twelve" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_vehicle_rc_image"
+                            android:minHeight="@dimen/fifty"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"/>
+                        <ImageView
+                            android:visibility="gone"
+                            android:scaleType="centerCrop"
+                            android:layout_gravity="center_horizontal"
+                            android:id="@+id/iv_vehicle_rc_image"
+                            android:layout_width="@dimen/eighty"
+                            android:layout_height="@dimen/eighty"
+                            android:src="@drawable/ic_card" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center_horizontal"
+                            android:orientation="vertical"
+                            android:paddingLeft="5dp">
+
+
+                            <TextView
+                                android:id="@+id/tv_edit_profile_aadhar_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:gravity="center"
+                                android:visibility="gone"
+                                android:paddingBottom="5dp"
+                                android:paddingLeft="@dimen/twenty"
+                                android:paddingRight="@dimen/twenty"
+                                android:text="aadhar image"
+                                android:textAlignment="center"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/twelve" />
+
+                            <TextView
+                                android:layout_marginTop="@dimen/ten"
+                                android:id="@+id/tv_select_vehicle_rc_image"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:background="@drawable/btn_background"
+                                android:paddingLeft="20dp"
+                                android:paddingRight="20dp"
+                                android:paddingTop="10dp"
+                                android:paddingBottom="10dp"
+                                android:text="Add Image"
+                                android:textAlignment="center"
+                                android:textColor="@color/black" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </TableRow>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/button_submit"

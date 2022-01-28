@@ -25,6 +25,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -66,7 +67,10 @@ import com.wht.janatatraspo.Location.ActivityGetLocation;
 import com.wht.janatatraspo.MainActivity;
 import com.wht.janatatraspo.Model.CityObject;
 import com.wht.janatatraspo.Model.ImagePOJO;
+import com.wht.janatatraspo.Model.MaterialCategory;
 import com.wht.janatatraspo.Model.State;
+import com.wht.janatatraspo.Model.Taluka;
+import com.wht.janatatraspo.Model.Varient;
 import com.wht.janatatraspo.Model.VehicleType;
 import com.wht.janatatraspo.R;
 import com.wht.janatatraspo.my_library.Camera;
@@ -127,37 +131,74 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
     private ArrayList<CityObject> pickupcityObjectArrayList;
     private SearchableSpinner spinnerPickupCity;
     private ArrayAdapter<CityObject> spinnerPickupCity_Adapter;
-    private String strPickupCityId = "0", strPickuCityName;
+    private String strPickupCityId = "0", strPickuCityName = "";
     private String loaderID = "";
+    private TextView tv_variable_count;
 
     //PickupCity Spinner Zone destination
     private ArrayList<State> statePickupArrayList;
     private SearchableSpinner spnr_statePickup;
     private ArrayAdapter<State> spinnerStatePick_Adapter;
-    private String strStatePickupId = "0", strStatePickName;
+    private String strStatePickupId = "0", strStatePickName = "";
 
     //DropCity Spinner Zone destination
     private ArrayList<State> stateDropArrayList;
     private SearchableSpinner spnr_stateDrop;
     private ArrayAdapter<State> spinnerStateDrop_Adapter;
-    private String strStateDropupId = "0", strStateDropName;
+    private String strStateDropupId = "0", strStateDropName = "";
 
     //City Spinner Zone destination
     private ArrayList<CityObject> destinationupcityObjectArrayList;
     private SearchableSpinner spinnerDestinationCity;
     private ArrayAdapter<CityObject> spinnerDestination_Adapter;
-    private String strDestinationId = "0", strDestinationName;
+    private String strDestinationId = "0", strDestinationName = "";
+
+    //City Spinner Taluka pickup
+    private ArrayList<Taluka> talukaPickupArrayList;
+    private SearchableSpinner spinnerPickupTaluka;
+    private ArrayAdapter<Taluka> spinnerPickupTalukaAdapter;
+    private String strSpinnerPickupTalukaId = "0", strSpinnerPickupTalukaName = "";
+
+    //City Spinner Taluka destination
+    private ArrayList<Taluka> talukaDestinationArrayList;
+    private SearchableSpinner spinnerDestinationTaluka;
+    private ArrayAdapter<Taluka> spinnerDestinationTalukaAdapter;
+    private String strSpinnerDestinationTalukaId = "0", strSpinnerTalukaDestinationName = "";
+
+    //City Spinner Main Material
+    private ArrayList<MaterialCategory> materialCategoryArrayList;
+    private SearchableSpinner spinnerMainMaterial;
+    private ArrayAdapter<MaterialCategory> materialCategoryArrayAdapter;
+    private String strMaterialId = "0", StrMaterialName = "";
+
+    //City Spinner Sub Material
+    private ArrayList<MaterialCategory> materialSubCategoryArrayList;
+    private SearchableSpinner spinnerSubMainMaterial;
+    private ArrayAdapter<MaterialCategory> materialSubCategoryArrayAdapter;
+    private String strSubMaterialId = "0", StrSubMaterialName = "";
+
+    //City Spinner Varient Material
+    private ArrayList<Varient> varientArrayList;
+    private SearchableSpinner spinnerVarient;
+    private ArrayAdapter<Varient> varientArrayAdapter;
+    private String strVarirntId = "0", StrVarientName = "";
+
+    //edit text
+    private EditText et_PickupVillage, et_DestinationVillage, et_countof_variable;
+    private String laboutType = "1";
+    private RadioGroup rg_labourtype;
 
     // load type
     private RadioButton rb_fullLoad, rb_partload;
+    private RadioButton rb_pertonLabour, rb_perLabour, rb_perBox, rb_perCreate;
     private String loadType = "2"; // loader_type 1:part loader 2:full load
     private RadioButton rb_fixedprice, rb_perton;
     private String isFixed = "1";  //fixed_per_tone:1:fixed 2:per tone
     private RadioButton rb_topay, rb_to_billed;
     private String isToPay = "2"; // payment_mode:   1:to be billed 2:to pay
     //pick up n drop loaction
-    private String pickuplat = "", pickuplong = "", pickupAddress= "";
-    private String droplat = "", droplong = "", dropAddress="";
+    private String pickuplat = "", pickuplong = "", pickupAddress = "";
+    private String droplat = "", droplong = "", dropAddress = "";
     //multiple images
     private RecyclerView recyclerViewImages;
     private GridLayoutManager gridLayoutManager;
@@ -283,7 +324,8 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
         spnr_loadtype = findViewById(R.id.spnr_loadtype);
         spnr_statePickup = findViewById(R.id.spnr_state);
         spnr_stateDrop = findViewById(R.id.spnr_Dropstate);
-
+        rg_labourtype = findViewById(R.id.rg_labourtype);
+        tv_variable_count = findViewById(R.id.tv_variable_count);
 
 
         rb_fullLoad = findViewById(R.id.rb_fullLoad);
@@ -294,10 +336,24 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
         rb_to_billed = findViewById(R.id.rb_to_billed);
         recyclerViewVehicleType = findViewById(R.id.recyclerViewVehicleType);
 
+        rb_pertonLabour = findViewById(R.id.rb_pertonLabour);
+        rb_perLabour = findViewById(R.id.rb_perLabour);
+        rb_perBox = findViewById(R.id.rb_perBox);
+        rb_perCreate = findViewById(R.id.rb_perCreate);
+
         tv_location = findViewById(R.id.tv_location);
         tv_load = findViewById(R.id.tv_load);
         tv_weight = findViewById(R.id.tv_weight);
         tv_price = findViewById(R.id.tv_price);
+
+        spinnerDestinationTaluka = findViewById(R.id.spinnerDestinationTaluka);
+        spinnerPickupTaluka = findViewById(R.id.spinnerPickupTaluka);
+        et_PickupVillage = findViewById(R.id.et_PickupVillage);
+        et_DestinationVillage = findViewById(R.id.et_DestinationVillage);
+        et_countof_variable = findViewById(R.id.et_countof_variable);
+        spinnerMainMaterial = findViewById(R.id.spinnerMainMaterial);
+        spinnerSubMainMaterial = findViewById(R.id.spinnerSubMaterial);
+        spinnerVarient = findViewById(R.id.spinnerVarient);
 
 
         tv_select_vehicle_rc_image.setOnClickListener(new View.OnClickListener() {
@@ -345,7 +401,7 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
         button_submit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!vehicleType.equals("")) {
+
                     if (validateFields()) {
                         if (!strDestinationId.equals("0") && !strPickupCityId.equals("0")) {
                             addPostLoad();
@@ -355,9 +411,7 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                     } else {
                         Constants.AlertDailogue("Please update all data", PostLoadActivity.this);
                     }
-                } else {
-                    Constants.AlertDailogue("Please select vehicle type ", PostLoadActivity.this);
-                }
+
 
             }
         });
@@ -380,6 +434,43 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                     loadType = "1";  // loader_type 1:part loader 2:full load
                 } else {
                     loadType = "2";   // loader_type 1:part loader 2:full load
+                }
+            }
+        });
+
+
+        rb_pertonLabour.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    laboutType = "1";
+                }
+            }
+        });
+
+        rb_perLabour.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    laboutType = "2";
+                }
+            }
+        });
+
+        rb_perBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    laboutType = "3";
+                }
+            }
+        });
+
+        rb_perCreate.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if (b) {
+                    laboutType = "4";
                 }
             }
         });
@@ -457,9 +548,11 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 if (b) {
                     rlLabour.setVisibility(View.VISIBLE);
+                    rg_labourtype.setVisibility(View.VISIBLE);
                     isLabourRequired = "1";
                 } else {
                     rlLabour.setVisibility(View.GONE);
+                    rg_labourtype.setVisibility(View.GONE);
                     isLabourRequired = "0";
                 }
             }
@@ -639,10 +732,11 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
 
             }
         });
-
+        webcallMainCategoryList();
         webcallPickStateList();
         //webcallDestinationCityList("");
-        getVehicleTypeList();
+        //Hide as per client suggestion
+        //getVehicleTypeList();
         launchSomeActivity = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 new ActivityResultCallback<ActivityResult>() {
@@ -655,7 +749,7 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                             pickuplat = data.getStringExtra("lat");
                             pickuplong = data.getStringExtra("lagn");
                             pickupAddress = data.getStringExtra("Address");
-                            et_Pickuplatlong.setText(pickupAddress+"\nLatitude : " + pickuplat + ", Longitude : " + pickuplong);
+                            et_Pickuplatlong.setText(pickupAddress + "\nLatitude : " + pickuplat + ", Longitude : " + pickuplong);
                         }
                     }
                 });
@@ -672,7 +766,7 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                             droplat = data.getStringExtra("lat");
                             droplong = data.getStringExtra("lagn");
                             dropAddress = data.getStringExtra("Address");
-                            et_Destinationlatlong.setText(dropAddress+"\nLatitude : " + droplat + ", Longitude : " + droplong);
+                            et_Destinationlatlong.setText(dropAddress + "\nLatitude : " + droplat + ", Longitude : " + droplong);
                         }
                     }
                 });
@@ -742,13 +836,13 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
             result = false;
         }
 
-        if (!MyValidator.isValidField(et_Expectedprice)) {
+      /*  if (!MyValidator.isValidField(et_Expectedprice)) {
             result = false;
-        }
+        }*/
 
-        if (!MyValidator.isValidField(et_Expectedweight)) {
+       /* if (!MyValidator.isValidField(et_Expectedweight)) {
             result = false;
-        }
+        }*/
 
         if (!MyValidator.isValidField(et_Remark)) {
             result = false;
@@ -835,11 +929,25 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                 PostLoadActivity.this.createRequestBodyFromText(pickuplat),
                 PostLoadActivity.this.createRequestBodyFromText(pickuplong),
                 PostLoadActivity.this.createRequestBodyFromText(strPickupCityId),
+                PostLoadActivity.this.createRequestBodyFromText(strSpinnerPickupTalukaId),
+                PostLoadActivity.this.createRequestBodyFromText(et_PickupVillage.getText().toString()),
+                PostLoadActivity.this.createRequestBodyFromText(pickupAddress),
                 PostLoadActivity.this.createRequestBodyFromText(strDestinationId),
                 PostLoadActivity.this.createRequestBodyFromText(droplat),
                 PostLoadActivity.this.createRequestBodyFromText(droplong),
+                PostLoadActivity.this.createRequestBodyFromText(strSpinnerDestinationTalukaId),
+                PostLoadActivity.this.createRequestBodyFromText(et_DestinationVillage.getText().toString()),
+                PostLoadActivity.this.createRequestBodyFromText(dropAddress),
                 PostLoadActivity.this.createRequestBodyFromText(vehicleType),
                 PostLoadActivity.this.createRequestBodyFromText(et_Material.getText().toString()),
+
+                PostLoadActivity.this.createRequestBodyFromText(strMaterialId),
+                PostLoadActivity.this.createRequestBodyFromText(strSubMaterialId),
+                PostLoadActivity.this.createRequestBodyFromText(strVarirntId),
+                PostLoadActivity.this.createRequestBodyFromText(laboutType),
+                PostLoadActivity.this.createRequestBodyFromText(et_countof_variable.getText().toString()),
+
+
                 PostLoadActivity.this.createRequestBodyFromText(et_Tonn.getText().toString()),
                 PostLoadActivity.this.createRequestBodyFromText(et_Expectedprice.getText().toString()),
                 PostLoadActivity.this.createRequestBodyFromText(isFixed),
@@ -874,7 +982,7 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                         String stringCode = i.getString("result");
                         String stringMsg = i.getString(IConstant.RESPONSE_MESSAGE);
 
-
+                        Helper_Method.dismissProgessBar();
                         if (stringCode.equalsIgnoreCase("true")) {
                             //Toast.makeText(PostLoadActivity.this, "" + stringMsg, Toast.LENGTH_SHORT).show();
                             Constants.AlertDailogue(stringMsg, PostLoadActivity.this);
@@ -882,6 +990,7 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                             startActivity(intent);
                             finish();
                         } else {
+                            Helper_Method.dismissProgessBar();
                             Toast.makeText(PostLoadActivity.this, "" + stringMsg, Toast.LENGTH_SHORT).show();
                         }
 
@@ -983,7 +1092,7 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                                         //category = categoryList.get(i).getCategoryID();
                                         strStatePickupId = statePickupArrayList.get(i).id;
                                         strStatePickName = statePickupArrayList.get(i).name;
-                                        if(i != 0)
+                                        if (i != 0)
                                             webcallPickCityList(strStatePickupId);
 
 
@@ -1007,8 +1116,8 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                                         //category = categoryList.get(i).getCategoryID();
                                         strStateDropupId = stateDropArrayList.get(i).id;
                                         strStateDropName = stateDropArrayList.get(i).name;
-                                        if(i != 0)
-                                        webcallDestinationCityList(strStateDropupId);
+                                        if (i != 0)
+                                            webcallDestinationCityList(strStateDropupId);
 
                                     }
 
@@ -1142,7 +1251,8 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                                         //category = categoryList.get(i).getCategoryID();
                                         strPickupCityId = pickupcityObjectArrayList.get(i).id;
                                         strPickuCityName = pickupcityObjectArrayList.get(i).city_name;
-
+                                        if (i != 0)
+                                            webcallPickTalukaList(strPickupCityId);
 
                                     }
 
@@ -1150,7 +1260,6 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                                         return;
                                     }
                                 });
-
 
 
                                 if (pickupcityObjectArrayList.size() == 0) {
@@ -1271,7 +1380,8 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                                         //category = categoryList.get(i).getCategoryID();
                                         strDestinationId = destinationupcityObjectArrayList.get(i).id;
                                         strDestinationName = destinationupcityObjectArrayList.get(i).city_name;
-
+                                        if (i != 0)
+                                            webcallDestinationTalukaList(strDestinationId);
 
                                     }
 
@@ -1309,6 +1419,703 @@ public class PostLoadActivity extends BaseActivity implements Camera.AsyncRespon
                             // Helper_Method.toaster(_act, stringMsg);
                             // scheduleDismiss();
                             //  Helper_Method.dismissProgessBar();
+                        }
+                    } catch (JSONException e) {
+                        //scheduleDismiss();
+                        Helper_Method.dismissProgessBar();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //scheduleDismiss();
+                    Helper_Method.dismissProgessBar();
+
+                } finally {
+                    Helper_Method.dismissProgessBar();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+                Log.d("Issue", getResources().getString(R.string.lbl_technical_error));
+                //scheduleDismiss();
+                Helper_Method.dismissProgessBar();
+
+            }
+        });
+    }
+
+    private void webcallPickTalukaList(String strCityId) {
+
+        Helper_Method.showProgressBar(_act, "Loading...");
+
+        Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
+        Call<ResponseBody> result = api.POSTTaluka(strCityId);
+
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String output = "";
+                try {
+
+                    talukaPickupArrayList = new ArrayList<>();
+                    talukaPickupArrayList.clear();
+
+                    output = response.body().string();
+                    Log.d("my_tag", "onResponseSachin: " + output);
+                    try {
+                        JSONObject i = new JSONObject(output);
+                        String stringCode = i.getString("result");
+                        String stringMsg = i.getString(IConstant.RESPONSE_MESSAGE);
+
+
+                        if (stringCode.equalsIgnoreCase("true")) {
+                            talukaPickupArrayList.add(new Taluka("0", "Select Taluka City", "0"));
+                            //destinationupcityObjectArrayList.add(new CityObject("0", "Select Destination City", "0"));
+                            JSONArray jsonArray = i.getJSONArray("taluka_list");
+                            //pickupcityObjectArrayList.add(new CountryNameObject("0", "Select Country ", "Date"));
+                            for (int index = 0; index < jsonArray.length(); index++) {
+                                try {
+                                    talukaPickupArrayList.add(new Taluka(jsonArray.getJSONObject(index)));
+                                    //destinationupcityObjectArrayList.add(new CityObject(jsonArray.getJSONObject(index)));
+
+                                } catch (JSONException e) {
+
+                                    e.printStackTrace();
+                                    // scheduleDismiss();
+
+                                }
+                            }
+
+                            if (talukaPickupArrayList.size() == 0) {
+
+                                Helper_Method.dismissProgessBar();
+
+
+                            } else {
+
+                                // scheduleDismiss();
+
+                                spinnerPickupTaluka.setTitle("Select Taluka");
+                                spinnerPickupTalukaAdapter = new ArrayAdapter<Taluka>(_act,
+                                        android.R.layout.simple_spinner_item, talukaPickupArrayList);
+                                spinnerPickupTalukaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerPickupTaluka.setAdapter(spinnerPickupTalukaAdapter);
+                                spinnerPickupTaluka.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        // On selecting a spinner item
+                                        String item = adapterView.getItemAtPosition(i).toString();
+                                        //showToast(siteTaskCategoryObjArrayList.get(i).task);
+                                        //category = categoryList.get(i).getCategoryID();
+                                        strSpinnerPickupTalukaId = talukaPickupArrayList.get(i).id;
+                                        strSpinnerPickupTalukaName = talukaPickupArrayList.get(i).taluka_name;
+
+
+                                    }
+
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+                                        return;
+                                    }
+                                });
+
+
+                                if (talukaPickupArrayList.size() == 0) {
+
+                                } else {
+                                    /*if (strActionFlag.equalsIgnoreCase(IConstant.UPDATE)) {
+                                        if (driverListObject.city != null && !driverListObject.city.isEmpty() && !driverListObject.city.equals("null")) {
+
+                                            for (int k = 0; k < pickupcityObjectArrayList.size(); k++) {
+                                                if (pickupcityObjectArrayList.get(k).getId().equals(driverListObject.city)) {
+                                                    spinnerPickupCity.setSelection(k);
+                                                }
+                                            }
+                                        } else {
+
+                                        }
+                                    }*/
+
+                                }
+
+
+                            }
+
+                        } else {
+                            talukaPickupArrayList.clear();
+                            spinnerPickupTaluka.setTitle("Select Pickup Taluka");
+                            spinnerPickupTalukaAdapter = new ArrayAdapter<Taluka>(_act,
+                                    android.R.layout.simple_spinner_item, talukaPickupArrayList);
+                            spinnerPickupTalukaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerPickupTaluka.setAdapter(spinnerPickupTalukaAdapter);
+                            // Helper_Method.toaster(_act, stringMsg);
+                            // scheduleDismiss();
+                            //  Helper_Method.dismissProgessBar();
+
+
+                        }
+                    } catch (JSONException e) {
+                        //scheduleDismiss();
+                        Helper_Method.dismissProgessBar();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //scheduleDismiss();
+                    Helper_Method.dismissProgessBar();
+
+                } finally {
+                    Helper_Method.dismissProgessBar();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+                Log.d("Issue", getResources().getString(R.string.lbl_technical_error));
+                //scheduleDismiss();
+                Helper_Method.dismissProgessBar();
+
+            }
+        });
+    }
+
+    private void webcallDestinationTalukaList(String strCityId) {
+
+        Helper_Method.showProgressBar(_act, "Loading...");
+
+        Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
+        Call<ResponseBody> result = api.POSTTaluka(strCityId);
+
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String output = "";
+                try {
+
+                    talukaDestinationArrayList = new ArrayList<>();
+                    talukaDestinationArrayList.clear();
+
+                    output = response.body().string();
+                    Log.d("my_tag", "onResponseSachin: " + output);
+                    try {
+                        JSONObject i = new JSONObject(output);
+                        String stringCode = i.getString("result");
+                        String stringMsg = i.getString(IConstant.RESPONSE_MESSAGE);
+
+
+                        if (stringCode.equalsIgnoreCase("true")) {
+                            talukaDestinationArrayList.add(new Taluka("0", "Select Taluka City", "0"));
+                            //destinationupcityObjectArrayList.add(new CityObject("0", "Select Destination City", "0"));
+                            JSONArray jsonArray = i.getJSONArray("taluka_list");
+                            //pickupcityObjectArrayList.add(new CountryNameObject("0", "Select Country ", "Date"));
+                            for (int index = 0; index < jsonArray.length(); index++) {
+                                try {
+                                    talukaDestinationArrayList.add(new Taluka(jsonArray.getJSONObject(index)));
+                                    //destinationupcityObjectArrayList.add(new CityObject(jsonArray.getJSONObject(index)));
+
+                                } catch (JSONException e) {
+
+                                    e.printStackTrace();
+                                    // scheduleDismiss();
+
+                                }
+                            }
+
+                            if (talukaDestinationArrayList.size() == 0) {
+
+                                Helper_Method.dismissProgessBar();
+
+
+                            } else {
+
+                                // scheduleDismiss();
+
+                                spinnerDestinationTaluka.setTitle("Select Taluka");
+                                spinnerDestinationTalukaAdapter = new ArrayAdapter<Taluka>(_act,
+                                        android.R.layout.simple_spinner_item, talukaDestinationArrayList);
+                                spinnerDestinationTalukaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerDestinationTaluka.setAdapter(spinnerDestinationTalukaAdapter);
+                                spinnerDestinationTaluka.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        // On selecting a spinner item
+                                        String item = adapterView.getItemAtPosition(i).toString();
+                                        //showToast(siteTaskCategoryObjArrayList.get(i).task);
+                                        //category = categoryList.get(i).getCategoryID();
+                                        strSpinnerDestinationTalukaId = talukaDestinationArrayList.get(i).id;
+                                        strSpinnerTalukaDestinationName = talukaDestinationArrayList.get(i).taluka_name;
+
+
+                                    }
+
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+                                        return;
+                                    }
+                                });
+
+
+                                if (talukaPickupArrayList.size() == 0) {
+
+                                } else {
+                                    /*if (strActionFlag.equalsIgnoreCase(IConstant.UPDATE)) {
+                                        if (driverListObject.city != null && !driverListObject.city.isEmpty() && !driverListObject.city.equals("null")) {
+
+                                            for (int k = 0; k < pickupcityObjectArrayList.size(); k++) {
+                                                if (pickupcityObjectArrayList.get(k).getId().equals(driverListObject.city)) {
+                                                    spinnerPickupCity.setSelection(k);
+                                                }
+                                            }
+                                        } else {
+
+                                        }
+                                    }*/
+
+                                }
+
+
+                            }
+
+                        } else {
+                            talukaPickupArrayList.clear();
+                            spinnerPickupTaluka.setTitle("Select Pickup Taluka");
+                            spinnerPickupTalukaAdapter = new ArrayAdapter<Taluka>(_act,
+                                    android.R.layout.simple_spinner_item, talukaPickupArrayList);
+                            spinnerPickupTalukaAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerPickupTaluka.setAdapter(spinnerPickupTalukaAdapter);
+                            // Helper_Method.toaster(_act, stringMsg);
+                            // scheduleDismiss();
+                            //  Helper_Method.dismissProgessBar();
+
+
+                        }
+                    } catch (JSONException e) {
+                        //scheduleDismiss();
+                        Helper_Method.dismissProgessBar();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //scheduleDismiss();
+                    Helper_Method.dismissProgessBar();
+
+                } finally {
+                    Helper_Method.dismissProgessBar();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+                Log.d("Issue", getResources().getString(R.string.lbl_technical_error));
+                //scheduleDismiss();
+                Helper_Method.dismissProgessBar();
+
+            }
+        });
+    }
+
+    private void webcallMainCategoryList() {
+
+        //Helper_Method.showProgressBar(_act, "Loading...");
+
+        Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
+        Call<ResponseBody> result = api.POSTMaterial(
+                Shared_Preferences.getPrefs(PostLoadActivity.this, IConstant.USER_ID),
+                Shared_Preferences.getPrefs(PostLoadActivity.this, IConstant.USER_API_TOKEN),
+                ""
+        );
+
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String output = "";
+                try {
+
+                    materialCategoryArrayList = new ArrayList<>();
+                    materialCategoryArrayList.clear();
+
+                    output = response.body().string();
+                    Log.d("my_tag", "onResponseSachin: " + output);
+                    try {
+                        JSONObject i = new JSONObject(output);
+                        String stringCode = i.getString("result");
+                        String stringMsg = i.getString(IConstant.RESPONSE_MESSAGE);
+
+
+                        if (stringCode.equalsIgnoreCase("true")) {
+                            materialCategoryArrayList.add(new MaterialCategory("0", "-1", "Select Category of Material"));
+                            //destinationupcityObjectArrayList.add(new CityObject("0", "Select Destination City", "0"));
+                            JSONArray jsonArray = i.getJSONArray("category_list");
+                            //pickupcityObjectArrayList.add(new CountryNameObject("0", "Select Country ", "Date"));
+                            for (int index = 0; index < jsonArray.length(); index++) {
+                                try {
+                                    materialCategoryArrayList.add(new MaterialCategory(jsonArray.getJSONObject(index)));
+                                    //destinationupcityObjectArrayList.add(new CityObject(jsonArray.getJSONObject(index)));
+
+                                } catch (JSONException e) {
+
+                                    e.printStackTrace();
+                                    // scheduleDismiss();
+
+                                }
+                            }
+
+                            if (materialCategoryArrayList.size() == 0) {
+
+                                Helper_Method.dismissProgessBar();
+
+
+                            } else {
+
+                                // scheduleDismiss();
+
+                                spinnerMainMaterial.setTitle("Select Material Category");
+                                materialCategoryArrayAdapter = new ArrayAdapter<MaterialCategory>(_act,
+                                        android.R.layout.simple_spinner_item, materialCategoryArrayList);
+                                materialCategoryArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerMainMaterial.setAdapter(materialCategoryArrayAdapter);
+                                spinnerMainMaterial.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        // On selecting a spinner item
+                                        String item = adapterView.getItemAtPosition(i).toString();
+                                        //showToast(siteTaskCategoryObjArrayList.get(i).task);
+                                        //category = categoryList.get(i).getCategoryID();
+                                        strMaterialId = materialCategoryArrayList.get(i).getId();
+                                        StrMaterialName = materialCategoryArrayList.get(i).getCategory_name();
+                                       // Toast.makeText(PostLoadActivity.this, "" + strMaterialId, Toast.LENGTH_SHORT).show();
+                                        if (!strMaterialId.equals("-1")) {
+                                            webcallSubMainCategoryList(strMaterialId);
+                                            webcallVarientMainCategoryList(strMaterialId);
+                                        }
+
+                                    }
+
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+                                        return;
+                                    }
+                                });
+
+
+                                if (materialCategoryArrayList.size() == 0) {
+
+                                } else {
+                                    /*if (strActionFlag.equalsIgnoreCase(IConstant.UPDATE)) {
+                                        if (driverListObject.city != null && !driverListObject.city.isEmpty() && !driverListObject.city.equals("null")) {
+
+                                            for (int k = 0; k < pickupcityObjectArrayList.size(); k++) {
+                                                if (pickupcityObjectArrayList.get(k).getId().equals(driverListObject.city)) {
+                                                    spinnerPickupCity.setSelection(k);
+                                                }
+                                            }
+                                        } else {
+
+                                        }
+                                    }*/
+
+                                }
+
+
+                            }
+
+                        } else {
+                            materialCategoryArrayList.clear();
+                            spinnerMainMaterial.setTitle("Select Material Category");
+                            materialCategoryArrayAdapter = new ArrayAdapter<MaterialCategory>(_act,
+                                    android.R.layout.simple_spinner_item, materialCategoryArrayList);
+                            materialCategoryArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerMainMaterial.setAdapter(materialCategoryArrayAdapter);
+                            // Helper_Method.toaster(_act, stringMsg);
+                            // scheduleDismiss();
+                            //  Helper_Method.dismissProgessBar();
+
+
+                        }
+                    } catch (JSONException e) {
+                        //scheduleDismiss();
+                        Helper_Method.dismissProgessBar();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //scheduleDismiss();
+                    Helper_Method.dismissProgessBar();
+
+                } finally {
+                    Helper_Method.dismissProgessBar();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+                Log.d("Issue", getResources().getString(R.string.lbl_technical_error));
+                //scheduleDismiss();
+                Helper_Method.dismissProgessBar();
+
+            }
+        });
+    }
+
+    private void webcallSubMainCategoryList(String parentId) {
+
+        //Helper_Method.showProgressBar(_act, "Loading...");
+        Log.d("vije", "webcallSubMainCategoryList: " + parentId);
+
+        Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
+        Call<ResponseBody> result = api.POSTMaterial(
+                Shared_Preferences.getPrefs(PostLoadActivity.this, IConstant.USER_ID),
+                Shared_Preferences.getPrefs(PostLoadActivity.this, IConstant.USER_API_TOKEN),
+                parentId
+        );
+
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String output = "";
+                try {
+
+                    materialSubCategoryArrayList = new ArrayList<>();
+                    materialSubCategoryArrayList.clear();
+
+                    output = response.body().string();
+                    Log.d("my_tag", "vije: " + output);
+                    try {
+                        JSONObject i = new JSONObject(output);
+                        String stringCode = i.getString("result");
+                        String stringMsg = i.getString(IConstant.RESPONSE_MESSAGE);
+
+
+                        if (stringCode.equalsIgnoreCase("true")) {
+                            materialSubCategoryArrayList.add(new MaterialCategory("0", "0", "Select Sub Category of Material"));
+                            //destinationupcityObjectArrayList.add(new CityObject("0", "Select Destination City", "0"));
+                            JSONArray jsonArray = i.getJSONArray("category_list");
+                            //pickupcityObjectArrayList.add(new CountryNameObject("0", "Select Country ", "Date"));
+                            for (int index = 0; index < jsonArray.length(); index++) {
+                                try {
+                                    materialSubCategoryArrayList.add(new MaterialCategory(jsonArray.getJSONObject(index)));
+                                    //destinationupcityObjectArrayList.add(new CityObject(jsonArray.getJSONObject(index)));
+
+                                } catch (JSONException e) {
+
+                                    e.printStackTrace();
+                                    // scheduleDismiss();
+
+                                }
+                            }
+
+                            if (materialSubCategoryArrayList.size() == 0) {
+
+                                Helper_Method.dismissProgessBar();
+
+
+                            } else {
+
+                                // scheduleDismiss();
+
+                                spinnerSubMainMaterial.setTitle("Select Submaterial Category");
+                                materialSubCategoryArrayAdapter = new ArrayAdapter<MaterialCategory>(_act,
+                                        android.R.layout.simple_spinner_item, materialSubCategoryArrayList);
+                                materialSubCategoryArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerSubMainMaterial.setAdapter(materialSubCategoryArrayAdapter);
+                                spinnerSubMainMaterial.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        // On selecting a spinner item
+                                        String item = adapterView.getItemAtPosition(i).toString();
+                                        //showToast(siteTaskCategoryObjArrayList.get(i).task);
+                                        //category = categoryList.get(i).getCategoryID();
+                                        strSubMaterialId = materialSubCategoryArrayList.get(i).getId();
+                                        StrSubMaterialName = materialSubCategoryArrayList.get(i).getCategory_name();
+
+                                        if (!strSubMaterialId.equals("0")) {
+
+                                        }
+
+
+                                    }
+
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+                                        return;
+                                    }
+                                });
+
+
+                                if (materialSubCategoryArrayList.size() == 0) {
+
+                                } else {
+                                    /*if (strActionFlag.equalsIgnoreCase(IConstant.UPDATE)) {
+                                        if (driverListObject.city != null && !driverListObject.city.isEmpty() && !driverListObject.city.equals("null")) {
+
+                                            for (int k = 0; k < pickupcityObjectArrayList.size(); k++) {
+                                                if (pickupcityObjectArrayList.get(k).getId().equals(driverListObject.city)) {
+                                                    spinnerPickupCity.setSelection(k);
+                                                }
+                                            }
+                                        } else {
+
+                                        }
+                                    }*/
+
+                                }
+
+
+                            }
+
+                        } else {
+                            materialSubCategoryArrayList.clear();
+                            spinnerSubMainMaterial.setTitle("Select Sub Material Category");
+                            materialSubCategoryArrayAdapter = new ArrayAdapter<MaterialCategory>(_act,
+                                    android.R.layout.simple_spinner_item, materialSubCategoryArrayList);
+                            materialSubCategoryArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerSubMainMaterial.setAdapter(materialSubCategoryArrayAdapter);
+                            // Helper_Method.toaster(_act, stringMsg);
+                            // scheduleDismiss();
+                            //  Helper_Method.dismissProgessBar();
+
+
+                        }
+                    } catch (JSONException e) {
+                        //scheduleDismiss();
+                        Helper_Method.dismissProgessBar();
+                    }
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                    //scheduleDismiss();
+                    Helper_Method.dismissProgessBar();
+
+                } finally {
+                    Helper_Method.dismissProgessBar();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                // Toast.makeText(LoginActivity.this, "", Toast.LENGTH_SHORT).show();
+                Log.d("Issue", getResources().getString(R.string.lbl_technical_error));
+                //scheduleDismiss();
+                Helper_Method.dismissProgessBar();
+
+            }
+        });
+    }
+
+    private void webcallVarientMainCategoryList(String parentId) {
+
+        //Helper_Method.showProgressBar(_act, "Loading...");
+        Log.d("vije", "webcallSubMainCategoryList: " + parentId);
+
+        Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
+        Call<ResponseBody> result = api.POSTVarient(
+                Shared_Preferences.getPrefs(PostLoadActivity.this, IConstant.USER_ID),
+                Shared_Preferences.getPrefs(PostLoadActivity.this, IConstant.USER_API_TOKEN),
+                parentId
+        );
+
+        result.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                String output = "";
+                try {
+
+                    varientArrayList = new ArrayList<>();
+                    varientArrayList.clear();
+
+                    output = response.body().string();
+                    Log.d("my_tag", "vije: " + output);
+                    try {
+                        JSONObject i = new JSONObject(output);
+                        String stringCode = i.getString("result");
+                        String stringMsg = i.getString(IConstant.RESPONSE_MESSAGE);
+
+
+                        if (stringCode.equalsIgnoreCase("true")) {
+                            varientArrayList.add(new Varient("0", "Select Varient", "0"));
+                            //destinationupcityObjectArrayList.add(new CityObject("0", "Select Destination City", "0"));
+                            JSONArray jsonArray = i.getJSONArray("category_list");
+                            //pickupcityObjectArrayList.add(new CountryNameObject("0", "Select Country ", "Date"));
+                            for (int index = 0; index < jsonArray.length(); index++) {
+                                try {
+                                    varientArrayList.add(new Varient(jsonArray.getJSONObject(index)));
+                                    //destinationupcityObjectArrayList.add(new CityObject(jsonArray.getJSONObject(index)));
+
+                                } catch (JSONException e) {
+
+                                    e.printStackTrace();
+                                    // scheduleDismiss();
+
+                                }
+                            }
+
+                            if (varientArrayList.size() == 0) {
+
+                                Helper_Method.dismissProgessBar();
+
+
+                            } else {
+
+                                // scheduleDismiss();
+
+                                spinnerVarient.setTitle("Select Varirny");
+                                varientArrayAdapter = new ArrayAdapter<Varient>(_act,
+                                        android.R.layout.simple_spinner_item, varientArrayList);
+                                varientArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                                spinnerVarient.setAdapter(varientArrayAdapter);
+                                spinnerVarient.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                        // On selecting a spinner item
+                                        String item = adapterView.getItemAtPosition(i).toString();
+                                        //showToast(siteTaskCategoryObjArrayList.get(i).task);
+                                        //category = categoryList.get(i).getCategoryID();
+                                        strVarirntId = varientArrayList.get(i).getId();
+                                        StrVarientName = varientArrayList.get(i).getVariant();
+
+                                        if(i != 0)
+                                            tv_variable_count.setText("Enter Count of "+StrVarientName);
+                                        else {
+                                            tv_variable_count.setText("Enter Count");
+                                        }
+
+                                    }
+
+                                    public void onNothingSelected(AdapterView<?> adapterView) {
+                                        return;
+                                    }
+                                });
+
+
+                                if (varientArrayList.size() == 0) {
+
+                                } else {
+                                    /*if (strActionFlag.equalsIgnoreCase(IConstant.UPDATE)) {
+                                        if (driverListObject.city != null && !driverListObject.city.isEmpty() && !driverListObject.city.equals("null")) {
+
+                                            for (int k = 0; k < pickupcityObjectArrayList.size(); k++) {
+                                                if (pickupcityObjectArrayList.get(k).getId().equals(driverListObject.city)) {
+                                                    spinnerPickupCity.setSelection(k);
+                                                }
+                                            }
+                                        } else {
+
+                                        }
+                                    }*/
+
+                                }
+
+
+                            }
+
+                        } else {
+                            varientArrayList.clear();
+                            spinnerVarient.setTitle("Select Varient");
+                            varientArrayAdapter = new ArrayAdapter<Varient>(_act,
+                                    android.R.layout.simple_spinner_item, varientArrayList);
+                            varientArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                            spinnerVarient.setAdapter(varientArrayAdapter);
+                            // Helper_Method.toaster(_act, stringMsg);
+                            // scheduleDismiss();
+                            //  Helper_Method.dismissProgessBar();
+
+
                         }
                     } catch (JSONException e) {
                         //scheduleDismiss();

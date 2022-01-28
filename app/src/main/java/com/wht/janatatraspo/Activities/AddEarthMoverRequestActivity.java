@@ -23,6 +23,7 @@ import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RelativeLayout;
@@ -50,6 +51,7 @@ import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 import com.toptoche.searchablespinnerlibrary.SearchableSpinner;
+import com.wht.janatatraspo.Adapter.AdapterImages;
 import com.wht.janatatraspo.Adapter.VehicleListActivityAdapter;
 import com.wht.janatatraspo.Constant.IConstant;
 import com.wht.janatatraspo.Constant.IUrls;
@@ -59,10 +61,13 @@ import com.wht.janatatraspo.Helpers.RecyclerItemClickListener;
 import com.wht.janatatraspo.Location.ActivityGetLocation;
 import com.wht.janatatraspo.MainActivity;
 import com.wht.janatatraspo.Model.CityObject;
+import com.wht.janatatraspo.Model.ImagePOJO;
 import com.wht.janatatraspo.Model.State;
 import com.wht.janatatraspo.Model.VehicleType;
 import com.wht.janatatraspo.R;
+import com.wht.janatatraspo.my_library.Camera;
 import com.wht.janatatraspo.my_library.Constants;
+import com.wht.janatatraspo.my_library.MyConfig;
 import com.wht.janatatraspo.my_library.MyValidator;
 import com.wht.janatatraspo.my_library.Shared_Preferences;
 
@@ -77,12 +82,16 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import okhttp3.MultipartBody;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class AddEarthMoverRequestActivity extends BaseActivity {
+import static com.wht.janatatraspo.Constant.IConstant.RC_IMAGE;
+import static com.wht.janatatraspo.my_library.MyConfig.prepareFilePart;
+
+public class AddEarthMoverRequestActivity extends BaseActivity implements Camera.AsyncResponse {
 
     final Calendar myCalendar = Calendar.getInstance();
     private final int REQUEST_CODE_MEDIA_SELECT = 200;
@@ -90,17 +99,20 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
     private Activity _act;
     private AppCompatButton button_submit;
     private String isNegotiable = "2", isHourly = "1";
+
     //vehicle type
     private ArrayList<VehicleType> vehicleTypeArrayList;
     private RecyclerView recyclerViewVehicleType;
     private VehicleListActivityAdapter mAdapter;
     private String vehicleType = "";
+
     //other
     private EditText et_Destinationlatlong, et_Expectedprice, et_hours, et_hoursPerDay, et_NoofDays, et_Requireddate, et_remark, et_TotalAmount;
     private MaterialCheckBox chk_isnegotiaable;
     private RadioButton rb_hourly, rb_daily;
     private RelativeLayout rlHour;
     private LinearLayout ll_hourly;
+
     //City Spinner Zone destination
     private ArrayList<CityObject> destinationupcityObjectArrayList;
     private SearchableSpinner spinnerDestinationCity;
@@ -115,6 +127,25 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
     private SearchableSpinner spnr_stateDrop;
     private ArrayAdapter<State> spinnerStateDrop_Adapter;
     private String strStateDropupId = "0", strStateDropName;
+
+    //DropCity Spinner Zone destination
+    private SearchableSpinner spnr_vehicle;
+    private ArrayAdapter<VehicleType> vehicleTypeArrayAdapter;
+    private String strVehicelId = "0", strVehicleName="";
+
+    //multiple image
+    private static final int REQUEST_OWNER = 141;
+    public static int image_type = 0;
+    private Camera camera;
+    private TextView tv_select_vehicle_rc_image;
+    private ImageView iv_vehicle_rc_image;
+    private boolean isUpdate = false;
+    private int type = 0;
+    private RecyclerView rv_vehicle_rc_image;
+    private AdapterImages adapterImagesRC;
+    private ArrayList<ImagePOJO> RC_IMAGE_DATA = new ArrayList<>();
+    private int update_position = -1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -133,6 +164,28 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         initTest();
+
+    }
+
+    @Override
+    public void processFinish(String result, int img_no) {
+        String[] parts = result.split("/");
+        String imagename = parts[parts.length - 1];
+        // Log.d("Image_path",result+" "+img_no);
+        switch (image_type) {
+
+            case RC_IMAGE:
+                if (!isUpdate) {
+                    RC_IMAGE_DATA.add(new ImagePOJO("0", "" + imagename, prepareFilePart("vehicle_doc_rc[" + (RC_IMAGE_DATA.size() - 1) + "]", result), result));
+                    adapterImagesRC.notifyDataSetChanged();
+                } else {
+                    RC_IMAGE_DATA.get(update_position).setImg_name(imagename);
+                    RC_IMAGE_DATA.get(update_position).setImage_path_multipart(prepareFilePart("vehicle_doc_rc[" + (RC_IMAGE_DATA.size() - 1) + "]", result));
+                    RC_IMAGE_DATA.get(update_position).setImg_path(result);
+                    adapterImagesRC.notifyItemChanged(update_position);
+                }
+                break;
+        }
 
     }
 
@@ -295,7 +348,21 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        camera.myActivityResult(requestCode, resultCode, data);
+    }
+
     private void initTest() {
+        camera = new Camera(AddEarthMoverRequestActivity.this);
+        tv_select_vehicle_rc_image = findViewById(R.id.tv_select_vehicle_rc_image);
+        iv_vehicle_rc_image = findViewById(R.id.iv_vehicle_rc_image);
+
+        rv_vehicle_rc_image = (RecyclerView) findViewById(R.id.rv_vehicle_rc_image);
+        rv_vehicle_rc_image.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+        adapterImagesRC = new AdapterImages(AddEarthMoverRequestActivity.this, RC_IMAGE, MyConfig.IMG_URL_CAR, RC_IMAGE_DATA, true);
+        rv_vehicle_rc_image.setAdapter(adapterImagesRC);
 
         recyclerViewVehicleType = findViewById(R.id.recyclerViewVehicleType);
         spinnerDestinationCity = findViewById(R.id.spnr_dest);
@@ -373,6 +440,7 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
                 if (b) {
                     ll_hourly.setVisibility(View.GONE);
                     isHourly = "1";
+                    et_TotalAmount.setText("");
                 }
             }
         });
@@ -383,6 +451,7 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
                 if (b) {
                     ll_hourly.setVisibility(View.VISIBLE);
                     isHourly = "2";
+                    et_TotalAmount.setText("");
                 }
             }
         });
@@ -526,7 +595,7 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Toast.makeText(_act, "a", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(_act, "a", Toast.LENGTH_SHORT).show();
                 if(!et_Expectedprice.getText().toString().isEmpty() && !et_hours.getText().toString().isEmpty() ){
                     if(rb_hourly.isChecked()) {
                         int totalAmount = ((Integer.parseInt(et_Expectedprice.getText().toString())) *
@@ -538,7 +607,9 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
                                 (Integer.parseInt(et_NoofDays.getText().toString())));
                         et_TotalAmount.setText(""+totalAmount);
                     }
-
+                }else {
+                    int totalAmount = 0;
+                    et_TotalAmount.setText(""+totalAmount);
                 }
             }
 
@@ -577,6 +648,48 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable editable) {
 
+            }
+        });
+
+        tv_select_vehicle_rc_image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Dexter.withActivity(AddEarthMoverRequestActivity.this)
+                        .withPermissions(
+                                Manifest.permission.READ_EXTERNAL_STORAGE,
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.CAMERA
+                        )
+                        .withListener(new MultiplePermissionsListener() {
+                            @Override
+                            public void onPermissionsChecked(MultiplePermissionsReport report) {
+                                // check if all permissions are granted
+                                if (report.areAllPermissionsGranted()) {
+                                    //camera.selectImage(iv_image, 0);
+                                    isUpdate = false;
+                                    image_type = RC_IMAGE;
+                                    camera.selectImage(iv_vehicle_rc_image, 0);
+                                }
+                                // check for permanent denial of any permission
+                                if (report.isAnyPermissionPermanentlyDenied()) {
+                                    // show alert dialog navigating to Settings
+                                    showSettingsDialog();
+                                }
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
+                                token.continuePermissionRequest();
+                            }
+                        }).
+                        withErrorListener(new PermissionRequestErrorListener() {
+                            @Override
+                            public void onError(DexterError error) {
+                                Toast.makeText(getApplicationContext(), "Error occurred! ", Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .onSameThread()
+                        .check();
             }
         });
 
@@ -818,6 +931,18 @@ public class AddEarthMoverRequestActivity extends BaseActivity {
     private void addEarthMoverRequest() {
 
         Helper_Method.showProgressBar(AddEarthMoverRequestActivity.this, "Loading...");
+
+        List<MultipartBody.Part> rcPartList = new ArrayList<>();
+
+        int j = 0;
+        for (int i = 0; i < RC_IMAGE_DATA.size(); i++) {
+
+            if (RC_IMAGE_DATA.get(i).getImage_path_multipart() != null) {
+                rcPartList.add(prepareFilePart("images[" + j + "]", RC_IMAGE_DATA.get(i).getImg_path()));
+                j++;
+            }
+        }
+        Log.d("my_tag", "uploadData: " + rcPartList.size());
 
         Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
         Call<ResponseBody> result = api.POSTaddEarthMoverRequest(

@@ -116,6 +116,9 @@
         <activity android:name=".Notification.ActivityNotification"
         android:screenOrientation="portrait"/>
 
+        <activity android:name=".Activities.EarthMoverDetailsActivity"
+            android:screenOrientation="portrait"/>
+
        <!-- <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />-->

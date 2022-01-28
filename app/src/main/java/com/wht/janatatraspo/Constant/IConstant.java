@@ -193,4 +193,6 @@ public interface IConstant {
     String TranspoBidList = "TranspoBidList";
     String Position = "Position";
     String Commission = "Commission";
+    String EarthMoverList = "EarthMoverList";
+    String PositionEarthMover = "PositionEarthMover";
 }

@@ -112,7 +112,7 @@ public class ActivityGetLocation extends AppCompatActivity implements OnMapReady
     private SharedPref sharedPrefMgr;
     private ConnectionDetector connectionDetector;
     private Boolean myLocationClick = false;
-    private TextView tvAddress;
+    private EditText tvAddress;
     private Dialog dialog;
     private TextView textLat, textLng;
     private EditText etAddress;
@@ -235,15 +235,16 @@ public class ActivityGetLocation extends AppCompatActivity implements OnMapReady
                 if (latitude != null) {
 
 
-                  /* */
-                    Toast.makeText(ActivityGetLocation.this, ""+latitude, Toast.LENGTH_SHORT).show();
-                        Bundle bundle = new Bundle();
-                        bundle.putString("lat", String.valueOf(latitude));
-                        bundle.putString("lagn", String.valueOf(longitude));
-                        bundle.putString("Address", addresss);
-                        bundle.putString("city", city);
-                        bundle.putString("state", state);
-                        bundle.putBoolean("location", true);
+                    /* */
+                    Toast.makeText(ActivityGetLocation.this, "" + latitude, Toast.LENGTH_SHORT).show();
+                    Bundle bundle = new Bundle();
+                    bundle.putString("lat", String.valueOf(latitude));
+                    bundle.putString("lagn", String.valueOf(longitude));
+                    bundle.putString("Address", tvAddress.getText().toString());
+                    //bundle.putString("Address", addresss);
+                    bundle.putString("city", city);
+                    bundle.putString("state", state);
+                    bundle.putBoolean("location", true);
 
                     /*Intent intent = new Intent();
                     intent.putExtra("lat", latitude);
@@ -253,8 +254,8 @@ public class ActivityGetLocation extends AppCompatActivity implements OnMapReady
 
                     // AddAddressDailog(String.valueOf(latitude), String.valueOf(longitude), addresss, city, state);
                     //bundle.putDouble("distance", distance);
-                     Intent intent = new Intent();
-                     intent.putExtras(bundle);
+                    Intent intent = new Intent();
+                    intent.putExtras(bundle);
                     setResult(123, intent);
                     finish();
 

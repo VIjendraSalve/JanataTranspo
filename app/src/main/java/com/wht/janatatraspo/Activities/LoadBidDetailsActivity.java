@@ -78,7 +78,7 @@ public class LoadBidDetailsActivity extends BaseActivity implements PaymentResul
     private ConnectionDetector connectionDetector;
     private TextView toolbar_title;
     private TextView tvVerified, tvKYCUpdate, tvPaymentRemain;
-    private TextView tvEstimateWeight, tvNegotiable, tvExpectedPrice, tvEstimatePrice, tvMaterial, tvWorkingDay;
+    private TextView tvEstimateWeight, tvNegotiable, tvExpectedPrice, tvEstimatePrice, tvMaterial, tvWorkingDay, tv_text_amount_commision;
     private ImageView ivPostImg2;
     private TextView tvOnGoing, tvWon;
     private TextView tv_allownces, tv_waitingcharge, tv_labourcharge, tvMyBidAmount;
@@ -181,6 +181,7 @@ public class LoadBidDetailsActivity extends BaseActivity implements PaymentResul
         tv_per_ton_price = findViewById(R.id.tv_per_ton_price);
         tv_final_price = findViewById(R.id.tv_final_price);
         tv_commision_amount = findViewById(R.id.tv_commision_amount);
+        tv_text_amount_commision = findViewById(R.id.tv_text_amount_commision);
 
         efaPayAdavance.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -264,24 +265,25 @@ public class LoadBidDetailsActivity extends BaseActivity implements PaymentResul
 
         tvOnGoing.setVisibility(View.GONE);
 
+
         if (bidArrayList.get(position).getIs_accept().equals("0")) {
             tvWon.setText("Pending");
             tvWon.setBackgroundColor(this.getResources().getColor(R.color.red));
             ivCall.setVisibility(View.GONE);
             efaPayAdavance.setVisibility(View.VISIBLE);
             tvStatusTitle.setText("Pending");
-
+            tv_text_amount_commision.setText("Total Amount to Pay \n "+ "( "+commission+"% of Total Amount)");
 
         } else {
             tvWon.setBackgroundColor(this.getResources().getColor(R.color.green));
             tvWon.setText("Completed");
             ivCall.setVisibility(View.VISIBLE);
             efaPayAdavance.setVisibility(View.GONE);
-            tvStatusTitle.setText("Completed");
+            tvStatusTitle.setText("Payment Completed");
             ll_ton.setVisibility(View.GONE);
             ll_pricePerTon.setVisibility(View.GONE);
 
-
+            tv_text_amount_commision.setText("Total Amount to paid \n "+ "( "+commission+"% of Total Amount)");
         }
 
         Glide.with(_act)

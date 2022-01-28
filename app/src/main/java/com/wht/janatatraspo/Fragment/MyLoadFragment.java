@@ -222,7 +222,7 @@ public class MyLoadFragment extends Fragment implements View.OnClickListener, Sw
 
     private void getLoadList() {
 
-       // Helper_Method.showProgressBar(getContext(), "Loading...");
+        Helper_Method.showProgressBar(getContext(), "Loading...");
         Interface api = IUrls.getRetrofit(IUrls.BASE_URL).create(Interface.class);
         Call<ResponseBody> result = api.POSTLoadList(
                 Shared_Preferences.getPrefs(getContext(), IConstant.USER_ID),
@@ -246,7 +246,7 @@ public class MyLoadFragment extends Fragment implements View.OnClickListener, Sw
                         Helper_Method.dismissProgessBar();
                         swipeRefreshLayout.setRefreshing(false);
                         if (stringCode.equalsIgnoreCase("true")) {
-                            Helper_Method.dismissProgessBar();
+
                             JSONArray jsonArray = i.getJSONArray("loader_list");
                             //pickupcityObjectArrayList.add(new CountryNameObject("0", "Select Country ", "Date"));
                             for (int index = 0; index < jsonArray.length(); index++) {
@@ -335,6 +335,7 @@ public class MyLoadFragment extends Fragment implements View.OnClickListener, Sw
                 remainingCount = 0;
                 //swipe=false;
                 //getOrderList();
+                Helper_Method.dismissProgessBar();
                 getLoadList();
                 //swipe=true;
             }
@@ -344,6 +345,7 @@ public class MyLoadFragment extends Fragment implements View.OnClickListener, Sw
             remainingCount = 0;
             page_count = 1;
             //get_my_rides(2);
+            Helper_Method.dismissProgessBar();
             getLoadList();
         }
     }

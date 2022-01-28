@@ -14,6 +14,7 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -371,13 +372,19 @@ public class TransportLoadDetailsActivity extends BaseActivity {
             tvNegotiable.setText("Fixed Rate");
         }
 
-
-        if (transpoMarketListObjectArrayList.get(position).getIs_accept().equalsIgnoreCase("1")) {
-            tv_status.setText("Accepted");
-            tv_status.setTextColor(this.getResources().getColor(R.color.green));
-        }
-        else if(transpoMarketListObjectArrayList.get(position).getIs_accept().equalsIgnoreCase("0")){
+        tv_status.setTypeface(tv_status.getTypeface(), Typeface.BOLD);
+        if (transpoMarketListObjectArrayList.get(position).getRide_status().equalsIgnoreCase("0")) {
             tv_status.setText("Pending");
+            tv_status.setTextColor(this.getResources().getColor(R.color.red));
+        }
+        else if(transpoMarketListObjectArrayList.get(position).getIs_accept().equalsIgnoreCase("1")){
+            tv_status.setText("Ongoing");
+            tv_status.setTextColor(this.getResources().getColor(R.color.logo_orange_color));
+        }else if(transpoMarketListObjectArrayList.get(position).getIs_accept().equalsIgnoreCase("2")){
+            tv_status.setText("Completed");
+            tv_status.setTextColor(this.getResources().getColor(R.color.green));
+        }else if(transpoMarketListObjectArrayList.get(position).getIs_accept().equalsIgnoreCase("3")){
+            tv_status.setText("Cancel");
             tv_status.setTextColor(this.getResources().getColor(R.color.red));
         }
         //Media Display
